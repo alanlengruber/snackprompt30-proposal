@@ -176,7 +176,7 @@ export default function TechnicalDocumentation() {
               variant="outline"
               size="sm"
               onClick={() => setLocation("/roadmap")}
-              className="flex-1 gap-2"
+              className="flex-1 gap-2 text-white"
             >
               <Calendar className="h-4 w-4" />
               <span className="text-xs">Roadmap</span>
@@ -189,7 +189,7 @@ export default function TechnicalDocumentation() {
               variant={viewMode === "technical" ? "default" : "outline"}
               size="sm"
               onClick={() => setViewMode("technical")}
-              className="flex-1 gap-2"
+              className={`flex-1 gap-2 ${viewMode !== "technical" ? "text-white" : ""}`}
             >
               <Code className="h-4 w-4" />
               <span className="text-xs">Técnico</span>
@@ -198,7 +198,7 @@ export default function TechnicalDocumentation() {
               variant={viewMode === "business" ? "default" : "outline"}
               size="sm"
               onClick={() => setViewMode("business")}
-              className="flex-1 gap-2"
+              className={`flex-1 gap-2 ${viewMode !== "business" ? "text-white" : ""}`}
             >
               <Briefcase className="h-4 w-4" />
               <span className="text-xs">Negócio</span>
