@@ -3181,7 +3181,7 @@ const defaultConfig: AgentCitationConfig = {
           <Card className="p-8 mb-8">
             <h3 className="text-xl font-bold mb-4">Mecânica de Créditos</h3>
             <p className="text-sm text-muted-foreground mb-6">
-              O sistema de créditos Snack funciona como uma moeda interna que abstrai os custos de IA e simplifica a precificação para o usuário final. <strong className="text-foreground">1 Crédito Snack = R$ 0,10</strong> (aproximadamente USD 0.02).
+              O sistema de créditos Snack funciona como uma moeda interna que abstrai os custos de IA e simplifica a precificação para o usuário final. <strong className="text-foreground">1 Snack Credit = $0.02</strong>.
             </p>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -3211,20 +3211,20 @@ const defaultConfig: AgentCitationConfig = {
                 <h4 className="font-semibold text-primary mb-3">Pacotes de Créditos</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex justify-between">
-                    <span>100 créditos</span>
-                    <strong className="text-foreground">R$ 10,00 (sem desconto)</strong>
+                    <span>100 credits</span>
+                    <strong className="text-foreground">$2.00 (no discount)</strong>
                   </li>
                   <li className="flex justify-between">
-                    <span>500 créditos</span>
-                    <strong className="text-foreground">R$ 45,00 (10% off)</strong>
+                    <span>500 credits</span>
+                    <strong className="text-foreground">$9.00 (10% off)</strong>
                   </li>
                   <li className="flex justify-between">
-                    <span>1.000 créditos</span>
-                    <strong className="text-foreground">R$ 80,00 (20% off)</strong>
+                    <span>1,000 credits</span>
+                    <strong className="text-foreground">$16.00 (20% off)</strong>
                   </li>
                   <li className="flex justify-between">
-                    <span>5.000 créditos</span>
-                    <strong className="text-foreground">R$ 350,00 (30% off)</strong>
+                    <span>5,000 credits</span>
+                    <strong className="text-foreground">$70.00 (30% off)</strong>
                   </li>
                 </ul>
               </div>
@@ -3276,40 +3276,40 @@ const defaultConfig: AgentCitationConfig = {
                     <th className="text-left py-3 px-4 font-semibold">Faixa de Receita Mensal</th>
                     <th className="text-left py-3 px-4 font-semibold">Criador Recebe</th>
                     <th className="text-left py-3 px-4 font-semibold">Plataforma Retém</th>
-                    <th className="text-left py-3 px-4 font-semibold">Exemplo (R$ 1.000)</th>
+                    <th className="text-left py-3 px-4 font-semibold">Example ($200)</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-border/50">
-                    <td className="py-3 px-4">R$ 0 - R$ 1.000</td>
+                    <td className="py-3 px-4">$0 - $200</td>
                     <td className="py-3 px-4 font-medium text-primary">70%</td>
                     <td className="py-3 px-4 text-muted-foreground">30%</td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-muted px-2 py-1 rounded">R$ 700</code>
+                      <code className="text-xs bg-muted px-2 py-1 rounded">$140</code>
                     </td>
                   </tr>
                   <tr className="border-b border-border/50">
-                    <td className="py-3 px-4">R$ 1.001 - R$ 5.000</td>
+                    <td className="py-3 px-4">$201 - $1,000</td>
                     <td className="py-3 px-4 font-medium text-primary">75%</td>
                     <td className="py-3 px-4 text-muted-foreground">25%</td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-muted px-2 py-1 rounded">R$ 750</code>
+                      <code className="text-xs bg-muted px-2 py-1 rounded">$150</code>
                     </td>
                   </tr>
                   <tr className="border-b border-border/50">
-                    <td className="py-3 px-4">R$ 5.001 - R$ 20.000</td>
+                    <td className="py-3 px-4">$1,001 - $4,000</td>
                     <td className="py-3 px-4 font-medium text-primary">80%</td>
                     <td className="py-3 px-4 text-muted-foreground">20%</td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-muted px-2 py-1 rounded">R$ 800</code>
+                      <code className="text-xs bg-muted px-2 py-1 rounded">$160</code>
                     </td>
                   </tr>
                   <tr className="border-b border-border/50">
-                    <td className="py-3 px-4">Acima de R$ 20.000</td>
+                    <td className="py-3 px-4">Above $4,000</td>
                     <td className="py-3 px-4 font-medium text-primary">85%</td>
                     <td className="py-3 px-4 text-muted-foreground">15%</td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-muted px-2 py-1 rounded">R$ 850</code>
+                      <code className="text-xs bg-muted px-2 py-1 rounded">$170</code>
                     </td>
                   </tr>
                 </tbody>
@@ -3349,7 +3349,7 @@ const defaultConfig: AgentCitationConfig = {
                 <div>
                   <h4 className="font-semibold mb-1">Pagamento (Dias 5-7)</h4>
                   <p className="text-muted-foreground">
-                    Transferência automática via PIX ou transferência bancária (mínimo R$ 50)
+                    Automatic transfer via bank transfer (minimum $10)
                   </p>
                 </div>
               </div>
@@ -3478,7 +3478,7 @@ const defaultConfig: AgentCitationConfig = {
             <div className="p-4 border border-border rounded-lg mb-4">
               <p className="text-xs text-muted-foreground mb-2">💬 Exemplo de interação:</p>
               <p className="text-sm mb-2"><strong>Usuário:</strong> "Compare as 5 propostas e recomende o melhor fornecedor"</p>
-              <p className="text-sm text-muted-foreground"><strong>Agente:</strong> "Analisei as propostas. Recomendo o Fornecedor C: melhor custo-benefício (R$ 45k), prazo de 30 dias, e atende 95% dos requisitos técnicos. <em>[Fonte: Proposta_C.pdf, p.3]</em>"</p>
+              <p className="text-sm text-muted-foreground"><strong>Agente:</strong> "Analisei as propostas. Recomendo o Fornecedor C: melhor custo-benefício ($9k), prazo de 30 dias, e atende 95% dos requisitos técnicos. <em>[Fonte: Proposta_C.pdf, p.3]</em>"</p>
             </div>
 
             <div className="grid grid-cols-3 gap-4 text-center">
@@ -3488,7 +3488,7 @@ const defaultConfig: AgentCitationConfig = {
               </div>
               <div className="p-3 bg-blue-50 rounded-lg">
                 <p className="text-xs text-muted-foreground">💰 Seller</p>
-                <p className="text-sm font-semibold text-blue-700">R$ 20/análise</p>
+                <p className="text-sm font-semibold text-blue-700">$4/analysis</p>
               </div>
               <div className="p-3 bg-purple-50 rounded-lg">
                 <p className="text-xs text-muted-foreground">🏢 Plataforma</p>
@@ -3539,7 +3539,7 @@ const defaultConfig: AgentCitationConfig = {
               </div>
               <div className="p-3 bg-blue-50 rounded-lg">
                 <p className="text-xs text-muted-foreground">💰 Seller</p>
-                <p className="text-sm font-semibold text-blue-700">R$ 25/contrato</p>
+                <p className="text-sm font-semibold text-blue-700">$5/contract</p>
               </div>
               <div className="p-3 bg-purple-50 rounded-lg">
                 <p className="text-xs text-muted-foreground">🏢 Plataforma</p>
@@ -3591,7 +3591,7 @@ const defaultConfig: AgentCitationConfig = {
               </div>
               <div className="p-3 bg-blue-50 rounded-lg">
                 <p className="text-xs text-muted-foreground">💰 Seller</p>
-                <p className="text-sm font-semibold text-blue-700">R$ 150/análise</p>
+                <p className="text-sm font-semibold text-blue-700">$30/analysis</p>
               </div>
               <div className="p-3 bg-purple-50 rounded-lg">
                 <p className="text-xs text-muted-foreground">🏢 Plataforma</p>
@@ -3643,7 +3643,7 @@ const defaultConfig: AgentCitationConfig = {
               </div>
               <div className="p-3 bg-blue-50 rounded-lg">
                 <p className="text-xs text-muted-foreground">💰 Seller</p>
-                <p className="text-sm font-semibold text-blue-700">R$ 30/sessão</p>
+                <p className="text-sm font-semibold text-blue-700">$6/session</p>
               </div>
               <div className="p-3 bg-purple-50 rounded-lg">
                 <p className="text-xs text-muted-foreground">🏢 Plataforma</p>
@@ -3711,7 +3711,7 @@ const defaultConfig: AgentCitationConfig = {
                 <strong className="text-foreground">Exemplo prático:</strong> Usuario pergunta
                 <em> "Calcule o NPV deste investimento"</em> → Agente identifica necessidade de calculo →
                 Chama <code className="bg-slate-200 px-1 rounded">Calculadora Financeira</code> →
-                Tool executa NPV(valores, taxa) e retorna R$ 150.000 →
+                Tool executa NPV(valores, taxa) e retorna $30,000 →
                 Agente contextualiza e entrega a resposta final.
               </p>
             </div>
@@ -3928,7 +3928,7 @@ const defaultConfig: AgentCitationConfig = {
                   <li>✓ Adicione condições</li>
                   <li>✓ Multi-step workflows</li>
                 </ul>
-                <p className="text-lg font-bold text-primary">R$ 49/mês</p>
+                <p className="text-lg font-bold text-primary">$10/month</p>
               </div>
 
               <div className="p-6 border-2 border-border rounded-lg">
@@ -4403,7 +4403,7 @@ const defaultConfig: AgentCitationConfig = {
                     </div>
                     <div className="text-right text-sm">
                       <div className="text-green-600 font-medium">Instantâneo</div>
-                      <div className="text-xs text-muted-foreground">Sem taxa* | Min: R$ 20</div>
+                      <div className="text-xs text-muted-foreground">No fee* | Min: $4</div>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-muted/50 rounded">
@@ -4413,7 +4413,7 @@ const defaultConfig: AgentCitationConfig = {
                     </div>
                     <div className="text-right text-sm">
                       <div>1 dia útil</div>
-                      <div className="text-xs text-muted-foreground">R$ 5,00 | Min: R$ 100</div>
+                      <div className="text-xs text-muted-foreground">$1.00 | Min: $20</div>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-muted/50 rounded">
@@ -4423,11 +4423,11 @@ const defaultConfig: AgentCitationConfig = {
                     </div>
                     <div className="text-right text-sm">
                       <div>2 dias úteis</div>
-                      <div className="text-xs text-muted-foreground">R$ 3,00 | Min: R$ 50</div>
+                      <div className="text-xs text-muted-foreground">$0.60 | Min: $10</div>
                     </div>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground mt-3 italic">* PIX sem taxa para sellers PRO (acima de R$ 500/mês)</p>
+                <p className="text-xs text-muted-foreground mt-3 italic">* PIX no fee for PRO sellers (above $100/month)</p>
               </div>
               <div className="border border-border rounded-lg p-4">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
@@ -4490,8 +4490,8 @@ const defaultConfig: AgentCitationConfig = {
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="py-3 px-4 font-medium">Saque mínimo</td>
-                    <td className="py-3 px-4">R$ 50</td>
-                    <td className="py-3 px-4 text-primary font-medium">R$ 20</td>
+                    <td className="py-3 px-4">$10</td>
+                    <td className="py-3 px-4 text-primary font-medium">$4</td>
                     <td className="py-3 px-4 text-green-600 font-medium">Sem mínimo</td>
                   </tr>
                   <tr className="border-b border-border/50">
@@ -4524,8 +4524,8 @@ const defaultConfig: AgentCitationConfig = {
             <div className="mt-4 p-4 bg-muted/50 rounded-lg">
               <h4 className="font-semibold mb-2">Critérios para upgrade:</h4>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• <strong className="text-foreground">PRO:</strong> R$ 500+/mês em vendas ou 6 meses de conta ativa</li>
-                <li>• <strong className="text-foreground">Enterprise:</strong> R$ 5.000+/mês ou contrato corporativo</li>
+                <li>• <strong className="text-foreground">PRO:</strong> $100+/month in sales or 6 months active account</li>
+                <li>• <strong className="text-foreground">Enterprise:</strong> $1,000+/month or corporate contract</li>
               </ul>
             </div>
           </Card>
@@ -4576,30 +4576,30 @@ const defaultConfig: AgentCitationConfig = {
                   <li>• 👤 Usuário compra 100 créditos por $100</li>
                   <li>• 👤 Usuário usa Agente "Advogado Sênior" (50 créditos)</li>
                   <li>• 💼 Seller recebe: 10 créditos (20% de 50)</li>
-                  <li>• 📊 Status: <span className="text-red-400">🔒 R$ 50 PENDENTE</span></li>
+                  <li>• 📊 Status: <span className="text-red-400">🔒 $10 PENDING</span></li>
                 </ul>
               </div>
               <div className="border-l-4 border-l-yellow-500 pl-4 py-2">
-                <div className="text-xs text-yellow-400 font-semibold">DIA 7 (08/12/2024)</div>
+                <div className="text-xs text-yellow-400 font-semibold">DAY 7 (08/12/2024)</div>
                 <ul className="text-sm text-slate-300 mt-1 space-y-1">
-                  <li>• 👤 Mais usos do agente: +30 créditos gastos</li>
-                  <li>• 💼 Seller recebe: +6 créditos</li>
-                  <li>• 📊 Status: <span className="text-red-400">🔒 R$ 80 PENDENTE</span> (16 créditos total)</li>
+                  <li>• 👤 More agent uses: +30 credits spent</li>
+                  <li>• 💼 Seller receives: +6 credits</li>
+                  <li>• 📊 Status: <span className="text-red-400">🔒 $16 PENDING</span> (16 credits total)</li>
                 </ul>
               </div>
               <div className="border-l-4 border-l-green-500 pl-4 py-2">
-                <div className="text-xs text-green-400 font-semibold">DIA 15 (15/12/2024)</div>
+                <div className="text-xs text-green-400 font-semibold">DAY 15 (15/12/2024)</div>
                 <ul className="text-sm text-slate-300 mt-1 space-y-1">
-                  <li>• ⏰ Quarentena do Dia 1 expira!</li>
-                  <li>• 📊 Status: <span className="text-green-400">🔓 R$ 50 DISPONÍVEL</span> + <span className="text-red-400">🔒 R$ 30 PENDENTE</span></li>
+                  <li>• ⏰ Day 1 quarantine expires!</li>
+                  <li>• 📊 Status: <span className="text-green-400">🔓 $10 AVAILABLE</span> + <span className="text-red-400">🔒 $6 PENDING</span></li>
                 </ul>
               </div>
               <div className="border-l-4 border-l-purple-500 pl-4 py-2">
-                <div className="text-xs text-purple-400 font-semibold">DIA 16 (16/12/2024)</div>
+                <div className="text-xs text-purple-400 font-semibold">DAY 16 (16/12/2024)</div>
                 <ul className="text-sm text-slate-300 mt-1 space-y-1">
-                  <li>• 💸 Seller solicita saque de R$ 50 via PIX</li>
-                  <li>• ✅ PIX processado em 5 minutos!</li>
-                  <li>• 📊 Status: <span className="text-red-400">🔒 R$ 30 PENDENTE</span> (aguardando quarentena)</li>
+                  <li>• 💸 Seller requests $10 withdrawal via PIX</li>
+                  <li>• ✅ PIX processed in 5 minutes!</li>
+                  <li>• 📊 Status: <span className="text-red-400">🔒 $6 PENDING</span> (awaiting quarantine)</li>
                 </ul>
               </div>
             </div>
@@ -4634,7 +4634,7 @@ const defaultConfig: AgentCitationConfig = {
                     <td className="py-3 px-4 font-medium">Embedding da Query</td>
                     <td className="py-3 px-4 text-muted-foreground">Jina AI v3</td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-muted px-2 py-1 rounded">R$ 0,001</code>
+                      <code className="text-xs bg-muted px-2 py-1 rounded">$0.0002</code>
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">2%</td>
                   </tr>
@@ -4642,7 +4642,7 @@ const defaultConfig: AgentCitationConfig = {
                     <td className="py-3 px-4 font-medium">Busca Vetorial</td>
                     <td className="py-3 px-4 text-muted-foreground">Qdrant Cloud</td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-muted px-2 py-1 rounded">R$ 0,002</code>
+                      <code className="text-xs bg-muted px-2 py-1 rounded">$0.0004</code>
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">4%</td>
                   </tr>
@@ -4650,7 +4650,7 @@ const defaultConfig: AgentCitationConfig = {
                     <td className="py-3 px-4 font-medium">Geração LLM (GPT-4o)</td>
                     <td className="py-3 px-4 text-muted-foreground">OpenAI</td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-muted px-2 py-1 rounded">R$ 0,045</code>
+                      <code className="text-xs bg-muted px-2 py-1 rounded">$0.009</code>
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">90%</td>
                   </tr>
@@ -4658,7 +4658,7 @@ const defaultConfig: AgentCitationConfig = {
                     <td className="py-3 px-4 font-medium">Infraestrutura (Backend + AI Engine)</td>
                     <td className="py-3 px-4 text-muted-foreground">AWS/GCP</td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-muted px-2 py-1 rounded">R$ 0,002</code>
+                      <code className="text-xs bg-muted px-2 py-1 rounded">$0.0004</code>
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">4%</td>
                   </tr>
@@ -4666,7 +4666,7 @@ const defaultConfig: AgentCitationConfig = {
                     <td className="py-3 px-4 font-bold">Custo Total</td>
                     <td className="py-3 px-4"></td>
                     <td className="py-3 px-4">
-                      <code className="text-xs bg-primary/20 px-2 py-1 rounded font-bold">R$ 0,050</code>
+                      <code className="text-xs bg-primary/20 px-2 py-1 rounded font-bold">$0.01</code>
                     </td>
                     <td className="py-3 px-4 font-bold">100%</td>
                   </tr>
@@ -4676,9 +4676,9 @@ const defaultConfig: AgentCitationConfig = {
 
             <div className="mt-6 p-4 bg-muted/50 rounded-lg">
               <p className="text-sm">
-                <strong className="text-foreground">Preço ao Usuário:</strong> 3-5 créditos (R$ 0,30 - R$ 0,50)
+                <strong className="text-foreground">User Price:</strong> 3-5 credits ($0.06 - $0.10)
                 <br />
-                <strong className="text-foreground">Margem de Lucro:</strong> 500-900% (R$ 0,25 - R$ 0,45 de lucro bruto)
+                <strong className="text-foreground">Profit Margin:</strong> 500-900% ($0.05 - $0.09 gross profit)
               </p>
             </div>
           </Card>
@@ -4691,28 +4691,28 @@ const defaultConfig: AgentCitationConfig = {
                 <p className="text-sm text-muted-foreground mb-2">
                   Embeddings de queries similares são cacheados por 24h, reduzindo custo de Jina em 70%
                 </p>
-                <div className="text-xs text-primary font-semibold">Economia: R$ 0,0007/msg</div>
+                <div className="text-xs text-primary font-semibold">Savings: $0.00014/msg</div>
               </div>
               <div className="p-4 border border-border rounded-lg">
                 <h4 className="font-semibold text-primary mb-2">Modelos Menores para Tarefas Simples</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   GPT-4o-mini para reformulação de queries (10x mais barato que GPT-4o)
                 </p>
-                <div className="text-xs text-primary font-semibold">Economia: R$ 0,004/msg</div>
+                <div className="text-xs text-primary font-semibold">Savings: $0.0008/msg</div>
               </div>
               <div className="p-4 border border-border rounded-lg">
                 <h4 className="font-semibold text-primary mb-2">Quantização de Vetores</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Reduz custo de armazenamento no Qdrant em 75% sem perda significativa de qualidade
                 </p>
-                <div className="text-xs text-primary font-semibold">Economia: R$ 0,0015/msg</div>
+                <div className="text-xs text-primary font-semibold">Savings: $0.0003/msg</div>
               </div>
               <div className="p-4 border border-border rounded-lg">
                 <h4 className="font-semibold text-primary mb-2">Contratos de Volume</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Negociação com OpenAI para desconto de 20% em volumes acima de $10k/mês
                 </p>
-                <div className="text-xs text-primary font-semibold">Economia: R$ 0,009/msg</div>
+                <div className="text-xs text-primary font-semibold">Savings: $0.0018/msg</div>
               </div>
             </div>
           </Card>
@@ -4725,28 +4725,28 @@ const defaultConfig: AgentCitationConfig = {
                   <h4 className="font-semibold">Custos de IA (LLMs + Embeddings)</h4>
                   <p className="text-xs text-muted-foreground">~500.000 mensagens/mês</p>
                 </div>
-                <div className="text-2xl font-black text-primary">R$ 25.000</div>
+                <div className="text-2xl font-black text-primary">$5,000</div>
               </div>
               <div className="flex justify-between items-center p-4 bg-background rounded-lg">
                 <div>
                   <h4 className="font-semibold">Infraestrutura (Servidores, DB, Storage)</h4>
                   <p className="text-xs text-muted-foreground">AWS/GCP multi-region</p>
                 </div>
-                <div className="text-2xl font-black text-primary">R$ 8.000</div>
+                <div className="text-2xl font-black text-primary">$1,600</div>
               </div>
               <div className="flex justify-between items-center p-4 bg-background rounded-lg">
                 <div>
                   <h4 className="font-semibold">Processamento de Pagamentos</h4>
-                  <p className="text-xs text-muted-foreground">Stripe (2.9% + R$ 0,30)</p>
+                  <p className="text-xs text-muted-foreground">Stripe (2.9% + $0.30)</p>
                 </div>
-                <div className="text-2xl font-black text-primary">R$ 4.500</div>
+                <div className="text-2xl font-black text-primary">$900</div>
               </div>
               <div className="flex justify-between items-center p-4 bg-primary/10 rounded-lg border-2 border-primary/20">
                 <div>
                   <h4 className="font-bold">Custo Total Mensal</h4>
                   <p className="text-xs text-muted-foreground">Variável conforme uso</p>
                 </div>
-                <div className="text-3xl font-black text-primary">R$ 37.500</div>
+                <div className="text-3xl font-black text-primary">$7,500</div>
               </div>
             </div>
           </Card>
@@ -4762,7 +4762,7 @@ const defaultConfig: AgentCitationConfig = {
           <div className="grid md:grid-cols-4 gap-6 mb-8">
             <Card className="p-6">
               <div className="text-sm font-semibold text-primary mb-2">GRATUITO</div>
-              <div className="text-3xl font-black mb-4">R$ 0</div>
+              <div className="text-3xl font-black mb-4">$0</div>
               <ul className="space-y-2 text-sm text-muted-foreground mb-6">
                 <li className="flex gap-2">
                   <span className="text-primary">✓</span>
@@ -4786,7 +4786,7 @@ const defaultConfig: AgentCitationConfig = {
 
             <Card className="p-6 border-2 border-primary">
               <div className="text-sm font-semibold text-primary mb-2">PRO</div>
-              <div className="text-3xl font-black mb-4">R$ 49<span className="text-sm font-normal text-muted-foreground">/mês</span></div>
+              <div className="text-3xl font-black mb-4">$10<span className="text-sm font-normal text-muted-foreground">/month</span></div>
               <ul className="space-y-2 text-sm text-muted-foreground mb-6">
                 <li className="flex gap-2">
                   <span className="text-primary">✓</span>
@@ -4810,7 +4810,7 @@ const defaultConfig: AgentCitationConfig = {
 
             <Card className="p-6">
               <div className="text-sm font-semibold text-primary mb-2">PREMIUM</div>
-              <div className="text-3xl font-black mb-4">R$ 149<span className="text-sm font-normal text-muted-foreground">/mês</span></div>
+              <div className="text-3xl font-black mb-4">$30<span className="text-sm font-normal text-muted-foreground">/month</span></div>
               <ul className="space-y-2 text-sm text-muted-foreground mb-6">
                 <li className="flex gap-2">
                   <span className="text-primary">✓</span>
@@ -4867,7 +4867,7 @@ const defaultConfig: AgentCitationConfig = {
                 <div className="p-4 bg-primary/5 rounded-lg">
                   <h4 className="font-semibold mb-2">Ancoragem de Preço</h4>
                   <p className="text-xs">
-                    Plano Premium a R$ 149 torna o PRO (R$ 49) parecer mais acessível, aumentando conversão
+                    Premium plan at $30 makes PRO ($10) seem more accessible, increasing conversion
                   </p>
                 </div>
                 <div className="p-4 bg-primary/5 rounded-lg">
@@ -4939,9 +4939,9 @@ const defaultConfig: AgentCitationConfig = {
                   </tr>
                   <tr className="border-t-2 border-primary/20 bg-primary/5">
                     <td className="py-3 px-4 font-bold">MRR (Receita Recorrente Mensal)</td>
-                    <td className="py-3 px-4 font-bold text-primary">R$ 5.910</td>
-                    <td className="py-3 px-4 font-bold text-primary">R$ 44.300</td>
-                    <td className="py-3 px-4 font-bold text-primary">R$ 235.200</td>
+                    <td className="py-3 px-4 font-bold text-primary">$1,182</td>
+                    <td className="py-3 px-4 font-bold text-primary">$8,860</td>
+                    <td className="py-3 px-4 font-bold text-primary">$47,040</td>
                   </tr>
                 </tbody>
               </table>
@@ -4955,25 +4955,25 @@ const defaultConfig: AgentCitationConfig = {
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="text-sm text-muted-foreground">Custos Fixos Mensais</span>
-                    <span className="font-semibold">R$ 25.000</span>
+                    <span className="font-semibold">$5,000</span>
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    Time (5 pessoas), infraestrutura base, marketing
+                    Team (5 people), base infrastructure, marketing
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm text-muted-foreground">Custos Variáveis</span>
-                    <span className="font-semibold">40% da receita</span>
+                    <span className="text-sm text-muted-foreground">Variable Costs</span>
+                    <span className="font-semibold">40% of revenue</span>
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    IA, infraestrutura escalável, comissões
+                    AI, scalable infrastructure, commissions
                   </div>
                 </div>
                 <div className="pt-4 border-t border-border">
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-semibold">Break-Even MRR</span>
-                    <span className="text-2xl font-black text-primary">R$ 41.667</span>
+                    <span className="text-2xl font-black text-primary">$8,333</span>
                   </div>
                   <div className="text-xs text-muted-foreground">
                     Esperado entre mês 6 e 7
@@ -4986,21 +4986,21 @@ const defaultConfig: AgentCitationConfig = {
               <h3 className="text-xl font-bold mb-4">Projeção de Lucro (Ano 1)</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Receita Total (12 meses)</span>
-                  <span className="text-lg font-bold">R$ 850.000</span>
+                  <span className="text-sm text-muted-foreground">Total Revenue (12 months)</span>
+                  <span className="text-lg font-bold">$170,000</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Custos Variáveis (40%)</span>
-                  <span className="text-lg font-bold text-destructive">-R$ 340.000</span>
+                  <span className="text-sm text-muted-foreground">Variable Costs (40%)</span>
+                  <span className="text-lg font-bold text-destructive">-$68,000</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Custos Fixos</span>
-                  <span className="text-lg font-bold text-destructive">-R$ 300.000</span>
+                  <span className="text-sm text-muted-foreground">Fixed Costs</span>
+                  <span className="text-lg font-bold text-destructive">-$60,000</span>
                 </div>
                 <div className="pt-4 border-t-2 border-primary/20">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-semibold">Lucro Líquido (Ano 1)</span>
-                    <span className="text-3xl font-black text-primary">R$ 210.000</span>
+                    <span className="text-sm font-semibold">Net Profit (Year 1)</span>
+                    <span className="text-3xl font-black text-primary">$42,000</span>
                   </div>
                   <div className="text-xs text-muted-foreground mt-1">
                     Margem de 24.7%
@@ -5020,43 +5020,43 @@ const defaultConfig: AgentCitationConfig = {
                 <div className="text-sm">
                   <div className="flex justify-between mb-1">
                     <span className="text-muted-foreground">MRR:</span>
-                    <span className="font-semibold">R$ 80.000</span>
+                    <span className="font-semibold">$16,000</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Lucro:</span>
-                    <span className="font-semibold">-R$ 50.000</span>
+                    <span className="text-muted-foreground">Profit:</span>
+                    <span className="font-semibold">-$10,000</span>
                   </div>
                 </div>
               </div>
 
               <div className="p-4 border-2 border-primary rounded-lg bg-primary/5">
-                <h4 className="font-semibold text-sm mb-2 text-primary">Realista</h4>
-                <div className="text-2xl font-black mb-2">15.000</div>
-                <p className="text-xs text-muted-foreground mb-3">usuários em 12 meses</p>
+                <h4 className="font-semibold text-sm mb-2 text-primary">Realistic</h4>
+                <div className="text-2xl font-black mb-2">15,000</div>
+                <p className="text-xs text-muted-foreground mb-3">users in 12 months</p>
                 <div className="text-sm">
                   <div className="flex justify-between mb-1">
                     <span className="text-muted-foreground">MRR:</span>
-                    <span className="font-semibold">R$ 235.000</span>
+                    <span className="font-semibold">$47,000</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Lucro:</span>
-                    <span className="font-semibold text-primary">R$ 210.000</span>
+                    <span className="text-muted-foreground">Profit:</span>
+                    <span className="font-semibold text-primary">$42,000</span>
                   </div>
                 </div>
               </div>
 
               <div className="p-4 border border-border rounded-lg">
-                <h4 className="font-semibold text-sm mb-2 text-primary">Otimista</h4>
-                <div className="text-2xl font-black mb-2">30.000</div>
-                <p className="text-xs text-muted-foreground mb-3">usuários em 12 meses</p>
+                <h4 className="font-semibold text-sm mb-2 text-primary">Optimistic</h4>
+                <div className="text-2xl font-black mb-2">30,000</div>
+                <p className="text-xs text-muted-foreground mb-3">users in 12 months</p>
                 <div className="text-sm">
                   <div className="flex justify-between mb-1">
                     <span className="text-muted-foreground">MRR:</span>
-                    <span className="font-semibold">R$ 470.000</span>
+                    <span className="font-semibold">$94,000</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Lucro:</span>
-                    <span className="font-semibold text-primary">R$ 680.000</span>
+                    <span className="text-muted-foreground">Profit:</span>
+                    <span className="font-semibold text-primary">$136,000</span>
                   </div>
                 </div>
               </div>
@@ -5076,14 +5076,14 @@ const defaultConfig: AgentCitationConfig = {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="p-6 bg-primary/5 rounded-lg">
                 <div className="text-xs text-muted-foreground mb-1">LTV (Lifetime Value)</div>
-                <div className="text-3xl font-black text-primary mb-2">R$ 2.400</div>
+                <div className="text-3xl font-black text-primary mb-2">$480</div>
                 <p className="text-xs text-muted-foreground">
                   Valor médio por usuário PRO ao longo de 24 meses (churn de 5%/mês)
                 </p>
               </div>
               <div className="p-6 bg-primary/5 rounded-lg">
                 <div className="text-xs text-muted-foreground mb-1">CAC (Customer Acquisition Cost)</div>
-                <div className="text-3xl font-black text-primary mb-2">R$ 180</div>
+                <div className="text-3xl font-black text-primary mb-2">$36</div>
                 <p className="text-xs text-muted-foreground">
                   Custo médio para adquirir um usuário pagante (marketing + vendas)
                 </p>
@@ -5134,7 +5134,7 @@ const defaultConfig: AgentCitationConfig = {
                 </div>
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-sm text-muted-foreground">Ticket Médio (agente pago)</span>
-                  <span className="text-lg font-bold text-primary">R$ 85</span>
+                  <span className="text-lg font-bold text-primary">$17</span>
                 </div>
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-sm text-muted-foreground">Criadores Ativos (vendas no mês)</span>
@@ -5321,7 +5321,7 @@ const defaultConfig: AgentCitationConfig = {
                     <span className="text-sm text-primary font-bold">25%</span>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Campanhas segmentadas para decisores de TI e inovação. CPA target: R$ 150
+                    Campanhas segmentadas para decisores de TI e inovação. CPA target: $30
                   </p>
                 </div>
                 <div>
@@ -5359,27 +5359,27 @@ const defaultConfig: AgentCitationConfig = {
               <div className="space-y-4">
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-sm text-muted-foreground">Performance Ads</span>
-                  <span className="text-lg font-bold">R$ 120.000</span>
+                  <span className="text-lg font-bold">$24,000</span>
                 </div>
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-sm text-muted-foreground">Content & SEO</span>
-                  <span className="text-lg font-bold">R$ 60.000</span>
+                  <span className="text-lg font-bold">$12,000</span>
                 </div>
                 <div className="flex justify-between items-center pb-3 border-b border-border">
-                  <span className="text-sm text-muted-foreground">Eventos e Parcerias</span>
-                  <span className="text-lg font-bold">R$ 40.000</span>
+                  <span className="text-sm text-muted-foreground">Events & Partnerships</span>
+                  <span className="text-lg font-bold">$8,000</span>
                 </div>
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-sm text-muted-foreground">Tools & Analytics</span>
-                  <span className="text-lg font-bold">R$ 20.000</span>
+                  <span className="text-lg font-bold">$4,000</span>
                 </div>
                 <div className="pt-3 border-t-2 border-primary/20">
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-semibold">Total Marketing</span>
-                    <span className="text-2xl font-black text-primary">R$ 240.000</span>
+                    <span className="text-2xl font-black text-primary">$48,000</span>
                   </div>
                   <div className="text-xs text-muted-foreground mt-1">
-                    CAC target: R$ 180 | Meta: 1.333 usuários pagantes
+                    CAC target: $36 | Goal: 1,333 paying users
                   </div>
                 </div>
               </div>
@@ -5419,7 +5419,7 @@ const defaultConfig: AgentCitationConfig = {
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="py-3 px-4 font-medium">Preço Inicial</td>
-                    <td className="py-3 px-4 text-primary">R$ 0 (Freemium)</td>
+                    <td className="py-3 px-4 text-primary">$0 (Freemium)</td>
                     <td className="py-3 px-4 text-muted-foreground">USD 60/usuário</td>
                     <td className="py-3 px-4 text-muted-foreground">USD 30/usuário</td>
                   </tr>
