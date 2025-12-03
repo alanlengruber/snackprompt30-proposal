@@ -275,6 +275,61 @@ export const phases: Phase[] = [
         ]
       }
     ]
+  },
+  {
+    id: "phase-4",
+    title: "Fase 4: Integração MCP",
+    shortTitle: "MCP",
+    sprints: 3,
+    storyPoints: 89,
+    duration: "6 semanas",
+    status: "pending",
+    color: "orange",
+    milestones: [
+      "MCP Gateway funcionando com Claude Desktop",
+      "Agentes expostos como MCP Tools",
+      "Agentes podem consumir MCP servers externos",
+      "Marketplace com agentes MCP-enabled"
+    ],
+    epics: [
+      {
+        id: "epic-4-0",
+        title: "Validação MCP",
+        stories: [
+          { id: "F4-001", item: "Protótipo MCP Server", feature: "MCP - Validação", points: 8, responsible: "Backend Python", sprint: "S12", status: "pending", type: "Core", complexity: "hard", note: "Protótipo técnico com 1 agente hardcoded exposto via MCP. Usar SDK oficial Python. Testar integração com Claude Desktop internamente.", device: "API", team: "Engineering", functionality: "Validação técnica do protocolo MCP" },
+          { id: "F4-002", item: "Demo Enterprise", feature: "MCP - Validação", points: 3, responsible: "Backend Python", sprint: "S12", status: "pending", type: "Product", complexity: "simple", note: "Preparar demo para 3-5 potenciais clientes Enterprise. Coletar feedback. Documentar interesse e objeções. Go/No-Go decision.", device: "Desktop", team: "Product", functionality: "Validação de mercado antes de investimento" },
+        ]
+      },
+      {
+        id: "epic-4-1",
+        title: "MCP Server MVP",
+        stories: [
+          { id: "F4-003", item: "MCP Gateway Service", feature: "MCP Server", points: 13, responsible: "Backend Python", sprint: "S12", status: "pending", type: "Core", complexity: "very_hard", note: "Serviço FastAPI que implementa protocolo MCP via SSE. Traduz requests MCP para chamadas internas ao AI Engine. Gerencia sessões e estado.", device: "API", team: "Engineering", functionality: "Gateway para clientes MCP externos" },
+          { id: "F4-004", item: "MCP Authentication", feature: "MCP Server", points: 8, responsible: "Backend Go", sprint: "S12", status: "pending", type: "Security", complexity: "hard", note: "Validação de API Keys específicas para MCP. Rate limiting por plano. Integração com sistema de permissões existente.", device: "API", team: "Engineering", functionality: "Segurança e controle de acesso MCP" },
+          { id: "F4-005", item: "Agents as MCP Tools", feature: "MCP Server", points: 8, responsible: "Backend Python", sprint: "S13", status: "pending", type: "Core", complexity: "hard", note: "Expor agentes como MCP Tools com schema JSON. Streaming de respostas via SSE. Manter proteção Black Box - não expor system prompts.", device: "API", team: "Engineering", functionality: "Agentes acessíveis via Claude Desktop/VS Code" },
+          { id: "F4-006", item: "MCP Billing Integration", feature: "MCP Server", points: 5, responsible: "Backend Go", sprint: "S13", status: "pending", type: "Integration", complexity: "medium", note: "Cada invocação MCP = 1 crédito. Integrar com wallet existente. Log de uso para analytics. Block se saldo insuficiente.", device: "API", team: "Engineering", functionality: "Monetização do canal MCP" },
+        ]
+      },
+      {
+        id: "epic-4-2",
+        title: "MCP Client",
+        stories: [
+          { id: "F4-007", item: "MCP Client Adapter", feature: "MCP Client", points: 13, responsible: "Backend Python", sprint: "S13", status: "pending", type: "Core", complexity: "very_hard", note: "Novo tool no LangGraph que conecta a MCP servers externos. Descobre tools disponíveis. Invoca tools com timeout e retry.", device: "API", team: "Engineering", functionality: "Agentes podem usar ferramentas externas via MCP" },
+          { id: "F4-008", item: "MCP Registry", feature: "MCP Client", points: 5, responsible: "Backend Go", sprint: "S14", status: "pending", type: "Core", complexity: "medium", note: "Catálogo de MCP servers configurados por usuário/org. Credenciais encriptadas. Health checks periódicos.", device: "API", team: "Engineering", functionality: "Gerenciamento de conexões MCP externas" },
+          { id: "F4-009", item: "MCP Servers UI", feature: "MCP Client", points: 8, responsible: "Frontend 1", sprint: "S14", status: "pending", type: "UI", complexity: "hard", note: "Página para configurar MCP servers externos. Formulário para adicionar server (URI, credenciais). Lista de servers com status. Testar conexão.", device: "Desktop", team: "Product", functionality: "UI para gerenciar conexões MCP" },
+        ]
+      },
+      {
+        id: "epic-4-3",
+        title: "Marketplace MCP",
+        stories: [
+          { id: "F4-010", item: "MCP-enabled Flag", feature: "Marketplace MCP", points: 3, responsible: "Backend Go", sprint: "S14", status: "pending", type: "Core", complexity: "simple", note: "Campo mcp_enabled na tabela de agentes. Creators podem marcar agentes como disponíveis via MCP. Filtro no marketplace.", device: "API", team: "Engineering", functionality: "Identificar agentes acessíveis via MCP" },
+          { id: "F4-011", item: "MCP Installation URI", feature: "Marketplace MCP", points: 5, responsible: "Backend Go", sprint: "S14", status: "pending", type: "Core", complexity: "medium", note: "Gerar URI de instalação MCP para cada agente. Formato: snackprompt://install/{agent_id}. Botão 'Adicionar ao Claude' no marketplace.", device: "API", team: "Product", functionality: "One-click install de agentes via MCP" },
+          { id: "F4-012", item: "MCP Analytics", feature: "Marketplace MCP", points: 5, responsible: "Backend Go", sprint: "S14", status: "pending", type: "Core", complexity: "medium", note: "Tracking de uso via MCP vs Web. Dashboard para creators ver distribuição de canais. Métricas: invocações, receita por canal.", device: "API", team: "Product", functionality: "Visibilidade de performance do canal MCP" },
+          { id: "F4-013", item: "MCP Documentation", feature: "Marketplace MCP", points: 5, responsible: "Frontend 2", sprint: "S14", status: "pending", type: "Product", complexity: "medium", note: "Página de docs explicando como usar MCP. Guia de instalação para Claude Desktop. Exemplos de uso. FAQ.", device: "Desktop/Mobile", team: "Product", functionality: "Onboarding de usuários MCP" },
+        ]
+      }
+    ]
   }
 ];
 
@@ -313,7 +368,7 @@ export function getProgressPercentage(): number {
   return total > 0 ? Math.round((completed / total) * 100) : 0;
 }
 
-export const sprints = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11"];
+export const sprints = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12", "S13", "S14"];
 
 export const responsibles: Responsible[] = [
   "Backend Python",

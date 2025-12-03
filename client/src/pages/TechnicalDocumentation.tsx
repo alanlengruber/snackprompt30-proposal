@@ -31,6 +31,7 @@ const technicalSections = [
   { id: "performance", title: "12. Performance e Escalabilidade", number: "12" },
   { id: "implementation", title: "13. Plano de Implementação", number: "13" },
   { id: "checklist", title: "14. Checklist de Decisões", number: "14" },
+  { id: "mcp-technical", title: "15. Arquitetura MCP", number: "15" },
 ];
 
 const businessSections = [
@@ -47,6 +48,7 @@ const businessSections = [
   { id: "projections", title: "11. Projeções Financeiras", number: "11" },
   { id: "metrics", title: "12. Métricas de Sucesso", number: "12" },
   { id: "gtm", title: "13. Go-to-Market Strategy", number: "13" },
+  { id: "mcp-business", title: "14. MCP - Diferencial Competitivo", number: "14" },
 ];
 
 type ViewMode = "technical" | "business";
@@ -3086,6 +3088,260 @@ const defaultConfig: AgentCitationConfig = {
             </div>
           </Card>
         </section>
+
+        {/* Section 15: MCP Architecture */}
+        <section id="mcp-technical" className="mb-20 scroll-mt-20">
+          <div className="flex items-baseline gap-4 mb-6">
+            <span className="text-6xl font-black text-primary/20">15</span>
+            <h2 className="text-3xl font-bold">Arquitetura MCP</h2>
+          </div>
+
+          <Card className="p-8 mb-8">
+            <h3 className="text-xl font-bold mb-4">O que é MCP (Model Context Protocol)</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              O MCP é um protocolo aberto da Anthropic que padroniza como aplicações de IA se conectam a fontes de dados e ferramentas externas.
+              Permite que Claude Desktop, VS Code e outros clientes consumam "servers" que expõem dados e ações via JSON-RPC.
+            </p>
+            <div className="mermaid">
+{`flowchart TB
+    subgraph Clients["Clientes MCP"]
+        CD[Claude Desktop]
+        VS[VS Code]
+        IDE[Outras IDEs]
+        APP[Apps Corporativos]
+    end
+
+    subgraph Gateway["SnackPrompt MCP Gateway"]
+        AUTH[Autenticação API Keys]
+        RATE[Rate Limiting]
+        BILL[Billing/Credits]
+    end
+
+    subgraph AIEngine["AI Engine Python"]
+        TOOLS[Agents como Tools]
+        RES[KBs como Resources]
+        STREAM[Streaming SSE]
+    end
+
+    Clients --> |MCP Protocol| Gateway
+    Gateway --> AIEngine`}
+            </div>
+          </Card>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <Card className="p-8">
+              <h3 className="text-xl font-bold mb-4">SnackPrompt como MCP Server</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Expõe agentes e Knowledge Bases para clientes MCP externos.
+              </p>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-sm mb-2">Tools Expostas</h4>
+                  <pre className="text-xs bg-muted p-3 rounded-lg overflow-x-auto"><code className="language-json">{`{
+  "tools": [
+    {
+      "name": "invoke_agent",
+      "description": "Invoke a SnackPrompt agent",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agent_id": { "type": "string" },
+          "query": { "type": "string" },
+          "context": { "type": "object" }
+        },
+        "required": ["agent_id", "query"]
+      }
+    }
+  ]
+}`}</code></pre>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm mb-2">Resources Expostos</h4>
+                  <pre className="text-xs bg-muted p-3 rounded-lg overflow-x-auto"><code className="language-json">{`{
+  "resources": [
+    {
+      "uri": "snackprompt://kb/{kb_id}",
+      "name": "Knowledge Base",
+      "mimeType": "application/json"
+    }
+  ]
+}`}</code></pre>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-8">
+              <h3 className="text-xl font-bold mb-4">SnackPrompt como MCP Client</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Permite que agentes consumam ferramentas externas via MCP.
+              </p>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-sm mb-2">MCP Client Adapter</h4>
+                  <pre className="text-xs bg-muted p-3 rounded-lg overflow-x-auto"><code className="language-python">{`class MCPClientAdapter:
+    """LangGraph tool that connects to
+    external MCP servers."""
+
+    def __init__(self, server_uri: str):
+        self.client = MCPClient(server_uri)
+
+    async def discover_tools(self):
+        return await self.client.list_tools()
+
+    async def invoke_tool(
+        self,
+        tool_name: str,
+        params: dict
+    ):
+        return await self.client.call_tool(
+            tool_name,
+            params
+        )`}</code></pre>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm mb-2">Conexões Suportadas</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Google Drive</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Notion</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Slack</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">PostgreSQL</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Salesforce</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          <Card className="p-8 mb-8">
+            <h3 className="text-xl font-bold mb-4">Componentes de Implementação</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-3 px-4 font-semibold">Componente</th>
+                    <th className="text-left py-3 px-4 font-semibold">Tecnologia</th>
+                    <th className="text-left py-3 px-4 font-semibold">Responsabilidade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">MCP Gateway</td>
+                    <td className="py-3 px-4 text-muted-foreground">Python (FastAPI) ou Go</td>
+                    <td className="py-3 px-4 text-muted-foreground">Endpoint SSE/WebSocket, autenticação, rate limiting</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">MCP Tool Adapter</td>
+                    <td className="py-3 px-4 text-muted-foreground">Python</td>
+                    <td className="py-3 px-4 text-muted-foreground">Novo tool no LangGraph para conectar a MCP servers externos</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">MCP Registry</td>
+                    <td className="py-3 px-4 text-muted-foreground">PostgreSQL + Redis</td>
+                    <td className="py-3 px-4 text-muted-foreground">Catálogo de servers configurados, credenciais, health checks</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">SDK MCP</td>
+                    <td className="py-3 px-4 text-muted-foreground">TypeScript/Python oficial</td>
+                    <td className="py-3 px-4 text-muted-foreground">Implementação do protocolo JSON-RPC</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
+          <Card className="p-8 mb-8">
+            <h3 className="text-xl font-bold mb-4">Fluxo de Autenticação MCP</h3>
+            <div className="mermaid">
+{`sequenceDiagram
+    participant Client as Claude Desktop
+    participant Gateway as MCP Gateway
+    participant Auth as Auth Service (Go)
+    participant AI as AI Engine (Python)
+
+    Client->>Gateway: MCP Request + API Key
+    Gateway->>Auth: Validate API Key
+    Auth-->>Gateway: User context + permissions
+    Gateway->>AI: Execute agent (JWT interno)
+    AI-->>Gateway: Streaming response
+    Gateway-->>Client: SSE tokens
+    Gateway->>Auth: Log usage + debit credits`}
+            </div>
+          </Card>
+
+          <Card className="p-8 mb-8">
+            <h3 className="text-xl font-bold mb-4">Segurança e Proteção de IP</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                <h4 className="font-semibold text-green-800 mb-2">O que é exposto via MCP</h4>
+                <ul className="text-sm text-green-700 space-y-1">
+                  <li>• Apenas invoke(input) → output</li>
+                  <li>• Lista de agentes disponíveis</li>
+                  <li>• Metadados públicos (nome, descrição)</li>
+                  <li>• Resultados de busca em KB</li>
+                </ul>
+              </div>
+              <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                <h4 className="font-semibold text-red-800 mb-2">O que NUNCA é exposto</h4>
+                <ul className="text-sm text-red-700 space-y-1">
+                  <li>• System prompts dos agentes</li>
+                  <li>• Conteúdo raw das Knowledge Bases</li>
+                  <li>• Passos intermediários de execução</li>
+                  <li>• Credenciais de MCP servers externos</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-8 bg-primary/5 border-primary/20">
+            <h3 className="text-xl font-bold mb-4">Roadmap de Implementação MCP</h3>
+            <div className="space-y-4">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-sm">
+                  4.0
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold">Validação (1-2 semanas)</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Protótipo técnico com 1 agente hardcoded. Teste interno com Claude Desktop. Demo para clientes enterprise. Go/No-Go decision.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
+                  4A
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold">MCP Server MVP (4-6 semanas)</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Gateway com autenticação. Expor agentes como Tools. Streaming via SSE. Integração com billing.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-100 text-green-600 flex items-center justify-center font-bold text-sm">
+                  4B
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold">MCP Client (4-6 semanas)</h4>
+                  <p className="text-sm text-muted-foreground">
+                    MCP Client Adapter no LangGraph. UI para configurar servers externos. Suporte a Google, Notion, etc.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm">
+                  4C
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold">Marketplace MCP (2-4 semanas)</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Creators marcam agentes como "MCP-enabled". Instalação one-click via URI. Analytics de uso.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </section>
       </>
     );
   }
@@ -5425,6 +5681,187 @@ const defaultConfig: AgentCitationConfig = {
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </Card>
+        </section>
+
+        {/* Section 14: MCP - Diferencial Competitivo */}
+        <section id="mcp-business" className="mb-20 scroll-mt-20">
+          <div className="flex items-baseline gap-4 mb-6">
+            <span className="text-6xl font-black text-primary/20">14</span>
+            <h2 className="text-3xl font-bold">MCP - Diferencial Competitivo</h2>
+          </div>
+
+          <Card className="p-8 mb-8 bg-gradient-to-r from-primary/5 to-purple-500/5 border-primary/20">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-2">Model Context Protocol (MCP)</h3>
+                <p className="text-muted-foreground">
+                  O MCP é um protocolo aberto da Anthropic que padroniza como aplicações de IA se conectam a fontes de dados e ferramentas externas.
+                  Integrando MCP, o Snack Prompt se torna acessível diretamente do Claude Desktop, VS Code e qualquer cliente MCP-compatível.
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <Card className="p-8">
+              <h3 className="text-xl font-bold mb-4">Proposta de Valor Enterprise</h3>
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">1</div>
+                  <div>
+                    <h4 className="font-semibold">Acesso Direto no Workflow</h4>
+                    <p className="text-sm text-muted-foreground">Usuários consomem agentes SnackPrompt diretamente do Claude Desktop ou VS Code, sem trocar de contexto.</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">2</div>
+                  <div>
+                    <h4 className="font-semibold">Integração Zero-Code</h4>
+                    <p className="text-sm text-muted-foreground">Empresas integram agentes em pipelines existentes sem desenvolvimento customizado.</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">3</div>
+                  <div>
+                    <h4 className="font-semibold">Conexão com Dados Corporativos</h4>
+                    <p className="text-sm text-muted-foreground">Agentes acessam Salesforce, SAP, Google Drive e outros via MCP servers externos.</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-8">
+              <h3 className="text-xl font-bold mb-4">Proposta de Valor Creators</h3>
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">1</div>
+                  <div>
+                    <h4 className="font-semibold">Distribuição Expandida</h4>
+                    <p className="text-sm text-muted-foreground">Agentes acessíveis em qualquer cliente MCP, não apenas no web app. Mais alcance = mais receita.</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">2</div>
+                  <div>
+                    <h4 className="font-semibold">Instalação One-Click</h4>
+                    <p className="text-sm text-muted-foreground">Usuários "instalam" agentes do marketplace via MCP URI diretamente em suas ferramentas.</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">3</div>
+                  <div>
+                    <h4 className="font-semibold">IP Protegido</h4>
+                    <p className="text-sm text-muted-foreground">Mesmo via MCP, o modelo Black Box é mantido - system prompts nunca expostos.</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          <Card className="p-8 mb-8">
+            <h3 className="text-xl font-bold mb-4">Arquitetura Híbrida MCP</h3>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="font-semibold text-primary mb-3">SnackPrompt como MCP Server</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Expõe agentes e Knowledge Bases para clientes MCP externos consumirem.
+                </p>
+                <div className="bg-muted/50 rounded-lg p-4">
+                  <div className="text-xs font-mono space-y-1">
+                    <div className="text-green-600">// Recursos expostos:</div>
+                    <div>snackprompt://agents/{"{agent_id}"}/invoke</div>
+                    <div>snackprompt://kb/{"{kb_id}"}/search</div>
+                    <div>snackprompt://templates/{"{template_id}"}</div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold text-primary mb-3">SnackPrompt como MCP Client</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Permite que agentes consumam ferramentas externas via protocolo MCP.
+                </p>
+                <div className="bg-muted/50 rounded-lg p-4">
+                  <div className="text-xs font-mono space-y-1">
+                    <div className="text-green-600">// Conexões possíveis:</div>
+                    <div>Google Drive, Notion, Slack</div>
+                    <div>Databases (Postgres, MySQL)</div>
+                    <div>APIs Corporativas (Salesforce, SAP)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-8 mb-8">
+            <h3 className="text-xl font-bold mb-4">Modelo de Monetização MCP</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-3 px-4 font-semibold">Plano</th>
+                    <th className="text-left py-3 px-4 font-semibold">Acesso MCP Server</th>
+                    <th className="text-left py-3 px-4 font-semibold">Acesso MCP Client</th>
+                    <th className="text-left py-3 px-4 font-semibold">Limites</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">Free</td>
+                    <td className="py-3 px-4 text-muted-foreground">Não disponível</td>
+                    <td className="py-3 px-4 text-muted-foreground">Não disponível</td>
+                    <td className="py-3 px-4 text-muted-foreground">-</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">PRO</td>
+                    <td className="py-3 px-4 text-primary">Agentes próprios</td>
+                    <td className="py-3 px-4 text-primary">Servers públicos</td>
+                    <td className="py-3 px-4">1.000 req/mês</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">Enterprise</td>
+                    <td className="py-3 px-4 text-primary">Todos agentes + KB</td>
+                    <td className="py-3 px-4 text-primary">Servers privados</td>
+                    <td className="py-3 px-4">Ilimitado + SLA</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">Creator</td>
+                    <td className="py-3 px-4 text-primary">Agentes marketplace</td>
+                    <td className="py-3 px-4 text-muted-foreground">-</td>
+                    <td className="py-3 px-4">Por consumo (credits)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 p-4 bg-primary/5 rounded-lg">
+              <p className="text-sm">
+                <strong>Billing:</strong> Cada invocação MCP = 1 crédito (mesmo modelo do web app).
+                Transparência total para usuários e creators.
+              </p>
+            </div>
+          </Card>
+
+          <Card className="p-8 bg-primary/5 border-primary/20">
+            <h3 className="text-xl font-bold mb-4">Diferencial Competitivo</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-4xl font-black text-primary mb-2">&lt;5%</div>
+                <p className="text-sm text-muted-foreground">das plataformas de IA oferecem MCP hoje</p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-black text-primary mb-2">3x</div>
+                <p className="text-sm text-muted-foreground">mais pontos de distribuição para creators</p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-black text-primary mb-2">0</div>
+                <p className="text-sm text-muted-foreground">código necessário para integração enterprise</p>
+              </div>
             </div>
           </Card>
         </section>

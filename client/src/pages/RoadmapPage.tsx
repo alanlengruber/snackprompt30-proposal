@@ -63,6 +63,7 @@ const phaseColors: Record<string, { bg: string; text: string; border: string }> 
   blue: { bg: "bg-blue-100", text: "text-blue-800", border: "border-blue-300" },
   green: { bg: "bg-green-100", text: "text-green-800", border: "border-green-300" },
   purple: { bg: "bg-purple-100", text: "text-purple-800", border: "border-purple-300" },
+  orange: { bg: "bg-orange-100", text: "text-orange-800", border: "border-orange-300" },
 };
 
 export default function RoadmapPage() {
@@ -221,7 +222,7 @@ export default function RoadmapPage() {
               <div className="text-xs text-sidebar-foreground/60">Sprints</div>
             </div>
             <div className="bg-sidebar-accent/50 rounded-lg p-3">
-              <div className="text-2xl font-bold text-sidebar-foreground">22</div>
+              <div className="text-2xl font-bold text-sidebar-foreground">28</div>
               <div className="text-xs text-sidebar-foreground/60">Semanas</div>
             </div>
           </div>
@@ -283,7 +284,7 @@ export default function RoadmapPage() {
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl">
               Planejamento completo de desenvolvimento com {allStories.length} features, {totalPoints}{" "}
-              story points distribuídos em {sprints.length} sprints ao longo de 22 semanas.
+              story points distribuídos em {sprints.length} sprints ao longo de 28 semanas.
             </p>
 
             {/* View Mode Toggle */}
@@ -329,10 +330,13 @@ export default function RoadmapPage() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div>
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">Timeline Total:</strong> 22 semanas (~5.5 meses)
+                  <strong className="text-foreground">Timeline Total:</strong> 28 semanas (~7 meses)
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">MVP Completo:</strong> Final de Junho 2025
+                  <strong className="text-foreground">MVP + Marketplace:</strong> Final de Junho 2025
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <strong className="text-foreground">MCP (Phase 4):</strong> Agosto 2025 (pós-validação)
                 </p>
                 <p className="text-sm text-muted-foreground">
                   <strong className="text-foreground">Status:</strong> Em Planejamento
@@ -428,7 +432,11 @@ export default function RoadmapPage() {
     section Fase 3
     Creditos              :f3a, after f2d, 2w
     Marketplace           :f3b, after f3a, 2w
-    Cash-out              :f3c, after f3b, 2w`}
+    Cash-out              :f3c, after f3b, 2w
+    section Fase 4
+    MCP Validacao         :f4a, after f3c, 2w
+    MCP Server            :f4b, after f4a, 2w
+    MCP Client            :f4c, after f4b, 2w`}
             </div>
           </Card>
         </section>
@@ -682,6 +690,12 @@ export default function RoadmapPage() {
         J[Cash-out]
     end
 
+    subgraph F4["Fase 4: MCP"]
+        K[MCP Server]
+        L[MCP Client]
+        M[Marketplace MCP]
+    end
+
     A --> B
     B --> C
     C --> D
@@ -690,7 +704,10 @@ export default function RoadmapPage() {
     F --> G
     G --> H
     H --> I
-    I --> J`}
+    I --> J
+    J --> K
+    K --> L
+    L --> M`}
             </div>
           </Card>
         </section>
