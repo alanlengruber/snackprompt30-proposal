@@ -14,6 +14,8 @@ import "prismjs/components/prism-yaml";
 import "prismjs/components/prism-sql";
 import "prismjs/components/prism-json";
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 const technicalSections = [
   { id: "overview", title: "01. Visão Geral da Arquitetura", number: "01" },
   { id: "stack", title: "02. Stack Tecnológica Detalhada", number: "02" },
@@ -403,7 +405,7 @@ export default function TechnicalDocumentation() {
             <h3 className="text-xl font-bold mb-4">Diagrama de Arquitetura de Alto Nível</h3>
             <div className="bg-white p-6 rounded-lg">
               <img
-                src="/architecture_diagram.png"
+                src={`${BASE_URL}architecture_diagram.png`}
                 alt="Arquitetura de Alto Nível"
                 className="w-full h-auto"
               />
@@ -613,7 +615,7 @@ graph = workflow.compile()`}</code>
             <h3 className="text-xl font-bold mb-4">Diagrama de Sequência</h3>
             <div className="bg-white p-6 rounded-lg">
               <img
-                src="/sync_diagram.png"
+                src={`${BASE_URL}sync_diagram.png`}
                 alt="Diagrama de Sincronização"
                 className="w-full h-auto"
               />
@@ -1343,7 +1345,7 @@ Authorization: Bearer <JWT_TOKEN>
             <h3 className="text-xl font-bold mb-4">Fluxo de Decisão (MVP)</h3>
             <div className="bg-white p-6 rounded-lg">
               <img
-                src="/agent_flow_diagram.png"
+                src={`${BASE_URL}agent_flow_diagram.png`}
                 alt="Fluxo do Agente"
                 className="w-full h-auto"
               />
@@ -2751,7 +2753,7 @@ const defaultConfig: AgentCitationConfig = {
             <h3 className="text-xl font-bold mb-4">O "Proxy Blindado"</h3>
             <div className="bg-white p-6 rounded-lg">
               <img
-                src="/security_diagram.png"
+                src={`${BASE_URL}security_diagram.png`}
                 alt="Arquitetura de Segurança"
                 className="w-full h-auto"
               />
