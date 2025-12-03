@@ -1,14 +1,16 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, Router as WouterRouter } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import TechnicalDocumentation from "./pages/TechnicalDocumentation";
 import RoadmapPage from "./pages/RoadmapPage";
 import FeaturesPage from "./pages/FeaturesPage";
 
-function Router() {
+const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+function Routes() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
@@ -34,10 +36,12 @@ function App() {
         defaultTheme="light"
         // switchable
       >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
+        <WouterRouter base={BASE_PATH}>
+          <TooltipProvider>
+            <Toaster />
+            <Routes />
+          </TooltipProvider>
+        </WouterRouter>
       </ThemeProvider>
     </ErrorBoundary>
   );
