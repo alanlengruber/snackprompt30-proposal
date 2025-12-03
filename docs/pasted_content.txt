@@ -1,0 +1,92 @@
+Com certeza. O exemplo do "Agente Advogado" ilustra perfeitamente o poder da plataforma e justifica o modelo de créditos.
+
+Aqui está o **Documento 1: Visão Estratégica de Negócios (Versão Definitiva)**. Este documento consolida toda a nossa estratégia, desde a transformação do dado estruturado até o marketplace com proteção de IP.
+
+---
+
+# 📄 Documento 1: Visão Estratégica de Negócios
+## Projeto: Snack Prompt 3.0 – Plataforma de Knowledge Base & Marketplace de Agentes
+
+### 1. Resumo Executivo
+A Snack Prompt está pivotando de um repositório de prompts para uma **Plataforma de Inteligência Corporativa (AI-Native Knowledge Base) e Marketplace de Agentes**.
+
+Atualmente, nossos usuários armazenam dados estruturados (tabelas, colunas). O nosso diferencial competitivo é transformar esses dados estáticos em um **"Cérebro Ativo"**. O usuário não apenas lerá seus dados; ele poderá conversar com eles, criar **Agentes Inteligentes** (que unem prompts complexos a bases de conhecimento) e comercializar esses agentes como ativos digitais (assets) seguros via API.
+
+### 2. O Problema de Mercado
+1.  **A "Alucinação" da IA:** Empresas adoram o ChatGPT, mas não confiam nele para dados corporativos ou jurídicos, pois ele não conhece o contexto específico do negócio.
+2.  **Silos de Inteligência:** Hoje, empresas guardam *Prompts* em um lugar e *Dados* (Knowledge Base) em outro. Nenhuma plataforma une os dois para criar assistentes verdadeiramente capazes.
+3.  **Risco de Propriedade Intelectual (IP):** Especialistas (ex: consultores, advogados) querem vender sua inteligência (seus prompts e bases de conhecimento), mas têm medo de que, ao entregar o prompt, o cliente o copie e pare de pagar.
+
+### 3. A Solução Snack Prompt 3.0
+Construiremos o sistema de RAG (Retrieval-Augmented Generation) mais preciso do mercado, aproveitando nossa estrutura de dados única (JSON/Tabelas) e permitindo a criação de **Agentes Híbridos**.
+
+#### Os 3 Pilares do Produto:
+1.  **Knowledge Base Ativa:** Tabelas criadas na Snack Prompt tornam-se imediatamente "conversáveis" e citáveis.
+2.  **Marketplace de Agentes com Proteção de IP ("Caixa Preta"):** Criadores podem vender agentes onde o *prompt* e a *base de conhecimento proprietária* ficam ocultos do comprador, mas acessíveis para uso via Chat ou API.
+3.  **API-as-a-Service:** Toda a inteligência da plataforma pode ser consumida por softwares de terceiros (n8n, Zapier, WhatsApp bots), transformando a Snack Prompt em infraestrutura.
+
+---
+
+### 4. Funcionalidades "Matadoras" (Killer Features)
+
+#### A. O Conceito de RAG Híbrido (Soma de Inteligências)
+Permitimos que um Agente combine o conhecimento do **Criador** com o conhecimento do **Usuário Final**.
+
+> **Exemplo Prático: O Agente "Advogado Sênior"**
+> *   **O Produto (Venda):** Um especialista cria o "Agente Advogado". Este agente possui em sua base secreta (KB do Criador) toda a Constituição, Código Civil e 500 modelos de contratos ideais.
+> *   **O Uso (Compra):** Um usuário comum compra acesso a este agente.
+> *   **A Ação:** O usuário faz upload de um contrato que recebeu de um fornecedor (KB do Usuário) e pede: *"Analise este contrato e aponte riscos baseados na lei"*.
+> *   **O Resultado:** O Agente lê o contrato do usuário, cruza com a legislação da base do criador e entrega o parecer.
+
+#### B. Proteção de IP (Proxy Blindado)
+Para garantir que o "segredo comercial" (o prompt complexo e a base de leis curada) não seja roubado:
+*   O usuário interage com a Snack Prompt, nunca diretamente com a LLM.
+*   Nós injetamos o prompt e os dados no backend.
+*   Entregamos apenas a resposta final. O usuário consome a inteligência, mas não vê a "fórmula".
+
+#### C. Integração Prompt-to-Agent
+Aproveitando nosso legado: Um usuário pode ir na sua biblioteca de prompts existente e clicar em **"Transformar em Agente"**. O sistema cria o agente, define aquele prompt como o "Cérebro" e pede para o usuário selecionar quais Tabelas de Conhecimento aquele agente deve ler.
+
+---
+
+### 5. Vantagens Competitivas (O nosso "Moat")
+
+1.  **Dados Estruturados na Fonte:** Concorrentes tentam ler PDFs desorganizados (OCR ruim). Nós temos dados em JSON, com colunas e linhas definidas pelo usuário. Isso garante uma precisão de resposta e citação muito superior.
+2.  **Ecossistema Completo:** Diferente de Vector DBs puros (apenas dados) ou da GPT Store (apenas prompts), nós unimos Dados + Prompts + API Externa.
+3.  **Citações Precisas:** Como sabemos exatamente de qual célula veio a informação, nossas respostas incluem links clicáveis para a fonte (ex: *"Fonte: Tabela Financeiro, Linha 12"*).
+
+---
+
+### 6. Modelo de Negócios: Snack Credits & Assinaturas
+
+Devido ao custo de processamento dos Agentes "Caixa Preta" (onde pagamos a LLM para proteger a IP), o modelo híbrido é essencial.
+
+| Tipo de Uso | Modelo Econômico | Descrição |
+| :--- | :--- | :--- |
+| **Plano Gratuito** | Subsidiado | Acesso a modelos rápidos (GPT-4o-mini). Limite de mensagens diárias. |
+| **Plano PRO** | Assinatura Mensal | Acesso a modelos de ponta (Claude 3.5, GPT-4o), maior janela de contexto e criação de agentes privados. |
+| **Uso de Agentes Premium** | **Snack Credits** (Tokens) | Para usar um agente "Caixa Preta" (via Chat ou API), o usuário gasta créditos. <br>Ex: Uma resposta custa 5 créditos. (2 pagam o custo da IA, 2 ficam com a plataforma, 1 vai para o criador do agente). |
+| **Uso BYOK (Enterprise)** | Taxa de Plataforma | O usuário insere a própria chave da OpenAI. Ele paga o consumo direto à OpenAI e paga à Snack Prompt apenas pela gestão da Knowledge Base. *(Nota: Não disponível para agentes com proteção de IP).* |
+
+---
+
+### 7. Roadmap Estratégico
+
+*   **Fase 1 - Fundação e MVP (Chat com Dados):**
+    *   Lançamento da ingestão de dados vetoriais (Qdrant + Jina).
+    *   Chat funcional que lê as tabelas do usuário.
+    *   Citações com link para a célula original.
+
+*   **Fase 2 - Agentes e API (Integração):**
+    *   Lançamento do "Agent Builder": Unir Prompts existentes + Tabelas.
+    *   Liberação da API Externa para uso em n8n/Zapier (consumindo créditos).
+
+*   **Fase 3 - O Marketplace (Economia):**
+    *   Venda de Agentes "Caixa Preta".
+    *   Sistema de carteira de créditos e repasse de comissão para criadores.
+
+---
+
+Este documento encerra a visão de negócios. Estamos prontos para traduzir isso em especificações de engenharia.
+
+**Podemos prosseguir para o Documento 2: Arquitetura Técnica e Stack Tecnológica?**

@@ -1,0 +1,172 @@
+Aqui está o **Documento 2: Arquitetura Técnica e Stack Tecnológica**.
+
+Este documento foi desenhado para ser entregue ao seu Líder Técnico e equipe de engenharia. Ele detalha não apenas as tecnologias escolhidas, mas a estratégia de integração entre o legado (Go/Next.js) e a nova camada de IA (Python).
+
+---
+
+# 📄 Documento 2: Arquitetura Técnica & Stack Tecnológica
+## Projeto: Snack Prompt 2.0 – AI Engine & Agent Runtime
+
+### 1. Visão Geral da Arquitetura (O Modelo Híbrido)
+
+Para entregar funcionalidades de IA de ponta sem reescrever o backend estável atual, adotaremos o padrão **Sidecar Microservice**.
+
+*   **Core Backend (Legado - Go):** Continua sendo a "Fonte da Verdade". Gerencia Usuários, Autenticação, Pagamentos (Créditos), CRUD de Tabelas/Prompts e o banco Postgres.
+*   **AI Engine (Novo - Python):** Um serviço dedicado focado exclusivamente em processamento vetorial, orquestração de LLMs e ingestão de dados complexos.
+
+#### Diagrama de Fluxo de Dados
+```mermaid
+[Frontend Next.js]
+       |
+       | (1. Auth & Business Logic)
+       v
+[Core Backend (Go) + Postgres]
+       |
+       | (2. Async Events: "Table Updated")
+       | (3. Credit Check & Token Signing)
+       v
+[AI Engine (Python FastAPI)] <---> [Vector DB (Qdrant)]
+       |
+       +---> [LLMs Providers (OpenAI, Anthropic)]
+       +---> [Embedding Provider (Jina AI)]
+```
+
+---
+
+### 2. A Stack Tecnológica (O "O Que" e o "Porquê")
+
+Abaixo, a justificativa técnica para cada decisão, focada em **Performance**, **Escalabilidade** e **Time-to-Market**.
+
+#### 2.1. Vector Database: **Qdrant**
+*   **Por que não PGVector?** Embora o PGVector seja conveniente, o **Qdrant** é nativo para vetores (escrito em Rust).
+    *   **Filtragem de Metadados:** Precisamos filtrar buscas por `user_id`, `table_id` e `agent_id` com milissegundos de latência. O Qdrant faz isso melhor que o Postgres em escala.
+    *   **Busca Híbrida (Hybrid Search):** O Qdrant suporta nativamente a busca por **Vetores Densos** (semântica) + **Vetores Esparsos** (palavras-chave exatas). Isso é vital para KB corporativa (ex: buscar um CNPJ específico ou código de produto).
+    *   **Quantização:** Permite compressão de vetores para economizar até 4x de RAM/Disco.
+
+#### 2.2. Embedding Model: **Jina Embeddings v3**
+*   **Por que Jina v3?** É o estado da arte (SOTA) em modelos open-source multilíngues.
+*   **Matryoshka Representation:** Permite "cortar" o vetor (ex: usar 512 dimensões em vez de 1024) mantendo 95%+ da precisão. Isso reduz drasticamente o custo de armazenamento no Qdrant.
+*   **Task Adapters:** Podemos instruir o modelo se estamos indexando uma "Fato Jurídico" ou uma "Descrição de Produto", melhorando a qualidade do RAG.
+
+#### 2.3. Data Pipeline (ETL): **LlamaIndex + Docling**
+*   **LlamaIndex:** Será o nosso "Bibliotecário". Ele possui parsers hierárquicos (`HierarchicalNodeParser`) que são perfeitos para transformar a estrutura JSON da Snack Prompt (`Tabela > Coluna > Célula`) em vetores sem perder o contexto do "pai".
+*   **Docling (IBM):** Para quando o usuário fizer upload de arquivos (PDF, DOCX). O Docling é superior em extrair tabelas e layouts complexos de documentos, convertendo-os para Markdown estruturado antes do embedding.
+
+#### 2.4. Agent Runtime: **LangChain (LangGraph)**
+*   **LangGraph:** Será o nosso "Cérebro". Diferente de cadeias lineares, o LangGraph opera como uma Máquina de Estados (State Machine).
+*   **Por que é essencial?** Para criar Agentes que podem ter loops (ex: "Pesquise na base -> Não achou? -> Reformule a pergunta -> Pesquise de novo"). Além disso, ele gerencia a **Memória (Checkpointers)** para chats longos.
+
+---
+
+### 3. Detalhamento dos Módulos do AI Engine (Python)
+
+O serviço Python terá dois grandes módulos: **Ingestão** e **Inferência**.
+
+#### 3.1. Módulo de Ingestão (Writer)
+Responsável por manter o Qdrant sincronizado com o Postgres/JSON.
+
+*   **Estratégia de Sincronia:** `Delete-Insert` (Substituição Atômica).
+*   **O Gatilho:** Quando o usuário salva uma tabela no Frontend, o Go envia o payload JSON para o Python.
+*   **Fluxo Lógico:**
+    1.  Recebe JSON da Tabela.
+    2.  Identifica o ID do Item (Célula) que mudou.
+    3.  **LlamaIndex:** Deleta vetores antigos no Qdrant com `filter: { snack_item_id: "xyz" }`.
+    4.  **Processamento:** Converte o conteúdo da célula em texto rico (adicionando o nome da coluna e da tabela no texto para contexto).
+    5.  **Jina AI:** Gera embeddings.
+    6.  **Qdrant Upsert:** Grava os novos vetores com o Payload rico.
+
+**Estrutura do Payload no Qdrant:**
+```json
+{
+  "payload": {
+    "snack_table_id": "Table_123",
+    "snack_column_id": "Col_Age",
+    "snack_item_id": "Cell_ABC", // Chave para updates
+    "text_content": "Contexto: Idade do Cliente. Valor: 35 anos.",
+    "source_url": "https://snackprompt...",
+    "access_level": "private" // Para controle de permissão
+  }
+}
+```
+
+#### 3.2. Módulo de Inferência (Reader / Chat)
+Responsável por executar o Agente e gerar respostas.
+
+*   **Feature: RAG Híbrido (Multi-Tenant)**
+    Quando um usuário usa um "Agente Advogado" (que tem uma KB secreta) para ler o "Contrato do Usuário" (KB do usuário), o Python configura o Retriever do Qdrant assim:
+    
+    ```python
+    # Pseudocódigo do Filtro Qdrant
+    filter = Filter(
+        should=[
+            FieldCondition(key="table_id", match=MatchValue(value="KB_DO_USUARIO_ID")),
+            FieldCondition(key="table_id", match=MatchValue(value="KB_SECRETA_AGENTE_ID"))
+        ]
+    )
+    ```
+    Isso permite que a IA "enxergue" ambas as bases simultaneamente.
+
+*   **Feature: Citações (Citations)**
+    O LangChain será configurado para retornar não apenas a string de resposta, mas os objetos `source_documents`. O Backend Python processará esses objetos para retornar ao Frontend um array de citações linkadas aos `snack_item_id`.
+
+---
+
+### 4. Arquitetura de Segurança e Proteção de IP ("Caixa Preta")
+
+Como garantir que o usuário use a API para falar com um Agente pago sem roubar o prompt ou ver os dados secretos?
+
+**O fluxo "Proxy Blindado":**
+
+1.  **Request:** O cliente (ou n8n) chama `POST api.snackprompt.com/v1/chat` (Go).
+2.  **Validação (Go):**
+    *   Verifica se o usuário comprou o Agente.
+    *   Verifica se o usuário tem **Créditos** suficientes.
+    *   Gera um `execution_token` temporário contendo os IDs permitidos.
+3.  **Execução (Python):**
+    *   O Go repassa a request para o Python.
+    *   O Python recupera o **System Prompt** (descriptografado em memória).
+    *   O Python usa a **API Key da Snack Prompt** (não a do usuário) para chamar a OpenAI.
+    *   **Output:** O Python retorna *apenas* a resposta textual. Os logs da OpenAI ficam na conta da Snack Prompt, inacessíveis ao usuário.
+4.  **Billing (Go):**
+    *   Após a resposta, o Python informa ao Go: "Gastei 500 tokens".
+    *   O Go debita os créditos da carteira do usuário.
+
+---
+
+### 5. Integração com Modelos (Model Factory)
+
+No serviço Python, teremos uma *Factory* para instanciar o LLM correto baseado no plano:
+
+```python
+def get_llm(user_context, agent_config):
+    # Cenário 1: Agente "Caixa Preta" (Usa infra Snack Prompt + Créditos)
+    if agent_config.is_blackbox:
+        return ChatOpenAI(api_key=PLATFORM_KEY, model="gpt-4o")
+    
+    # Cenário 2: BYOK (Usuário traz a chave)
+    if user_context.has_custom_key:
+        return ChatOpenAI(api_key=user_context.decrypted_key, model="gpt-4o")
+        
+    # Cenário 3: Plano Free
+    return ChatOpenAI(api_key=PLATFORM_KEY, model="gpt-4o-mini")
+```
+
+---
+
+### 6. Considerações de Frontend (Next.js)
+
+Para suportar essa nova arquitetura, o Frontend precisará de:
+
+1.  **Componente de Chat com Streaming:** Usar a biblioteca `ai` da Vercel ou `langchain-adapter` para suportar *Server-Sent Events (SSE)* e dar a sensação de digitação em tempo real.
+2.  **Renderizador de Markdown + Citações:** Um parser que detecta a tag `[Ref: 1]` e a transforma em um Tooltip ou Link clicável que abre a gaveta lateral com a célula da tabela.
+3.  **Agent Builder UI:** Uma interface "Drag-and-Drop" ou formulário passo-a-passo para o usuário selecionar Prompts existentes e Tabelas para compor um Agente.
+
+### Resumo do Plano de Execução Técnica
+
+1.  **Setup Infra:** Subir container Qdrant e criar o repo do FastAPI.
+2.  **Ingestão v1:** Criar webhook no Go -> Python para indexar tabelas simples.
+3.  **Retrieval v1:** Endpoint básico de chat (Python) conversando com OpenAI.
+4.  **Agentes:** Implementar a lógica de LangGraph e o filtro de RAG Híbrido.
+5.  **Billing/API:** Implementar a lógica de créditos e o gateway para uso externo.
+
+Esta arquitetura é **Cloud-Native**, escala horizontalmente (o Python pode ter N réplicas pois é stateless, o estado fica no Postgres/Qdrant) e utiliza o que há de mais moderno em IA (Vetores + Grafos).

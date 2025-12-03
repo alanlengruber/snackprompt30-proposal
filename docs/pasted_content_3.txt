@@ -1,0 +1,142 @@
+Você tem total razão. A sincronização é a "espinha dorsal" de um sistema RAG. Se ela falhar, a IA responde com dados velhos ou alucina, e o usuário perde a confiança.
+
+Como você busca uma arquitetura **robusta** e **profissional**, não podemos depender de chamadas HTTP síncronas (que travam o usuário esperando o embedding ser gerado) nem de cronjobs (que geram delay).
+
+Precisamos de uma **Arquitetura Orientada a Eventos (Event-Driven Architecture)**.
+
+Aqui está o **Documento 3**, focado exclusivamente na estratégia de sincronização e filas.
+
+---
+
+# 📄 Documento 3: Estratégia de Sincronização de Dados (Data Sync)
+## Projeto: Snack Prompt 2.0 – Event Bus & Pipeline de Ingestão
+
+### 1. O Desafio: Consistência vs. Latência
+Quando o usuário clica em "Salvar" no Frontend:
+1.  O dado deve ser persistido imediatamente no Postgres (Go) para segurança.
+2.  O usuário deve receber um "OK" instantâneo (UX fluida).
+3.  O processo de Embedding (que é pesado e lento) deve ocorrer em segundo plano.
+
+Para isso, utilizaremos um **Message Broker** (Fila de Mensagens).
+
+### 2. Tecnologia Escolhida: RabbitMQ (ou Redis Streams)
+
+Para o nível de robustez que a Snack Prompt exige, recomendo o **RabbitMQ**.
+
+*   **Por que RabbitMQ?** É o padrão da indústria para sistemas distribuídos. Ele garante a entrega da mensagem (Durability), permite re-tentativas automáticas se o serviço Python cair (Ack/Nack) e suporta roteamento complexo (Ex: filas prioritárias para usuários Pagantes vs. Gratuitos).
+*   *Alternativa Leve:* Se a infraestrutura precisar ser mais simples inicialmente, **Redis** (usando Pub/Sub ou Streams) funciona bem, mas o RabbitMQ oferece melhor visibilidade e gestão de falhas (Dead Letter Queues).
+
+**Decisão para o Projeto:** Vamos arquitetar com **RabbitMQ**.
+
+---
+
+### 3. Fluxo de Dados Detalhado
+
+O fluxo segue o padrão **Producer-Consumer**.
+
+#### A. O Produtor (Backend Go)
+O Go não "pede" para o Python fazer algo. Ele apenas "avisa" que algo aconteceu.
+
+1.  **Ação:** Usuário edita uma célula na Tabela e salva.
+2.  **Persistência:** Go salva no Postgres (`COMMIT`).
+3.  **Publicação:** Imediatamente após o commit, o Go publica uma mensagem no RabbitMQ na exchange `snack.events`.
+
+**Estrutura da Mensagem (Payload JSON):**
+```json
+{
+  "event_type": "ITEM_UPDATED", // ou ITEM_CREATED, ITEM_DELETED
+  "timestamp": "2025-10-20T10:00:00Z",
+  "data": {
+    "snack_table_id": "sIHp8Lz61",
+    "snack_column_id": "ovE1fCQZU",
+    "snack_item_id": "WLsSS_LBf",
+    "content_text": "Incentive Brands is a family-owned DFW partner...", 
+    "metadata": {
+       "author_id": "user_123",
+       "is_public": false
+    }
+  }
+}
+```
+*Nota:* Enviamos o conteúdo dentro da mensagem para evitar que o Python tenha que consultar o Go novamente (reduzindo latência e tráfego de rede).
+
+#### B. A Fila (RabbitMQ)
+O RabbitMQ recebe e enfileira. Aqui podemos criar **Filas Segregadas**:
+*   `queue.ingestion.priority`: Para usuários PRO (processamento instantâneo).
+*   `queue.ingestion.standard`: Para usuários Free (pode ter um leve atraso em horários de pico).
+
+#### C. O Consumidor (AI Engine - Python/FastAPI)
+Um processo em Python (`worker.py`) fica escutando a fila continuamente.
+
+1.  **Consumo:** O Worker pega a mensagem.
+2.  **Lógica Idempotente (Delete-then-Insert):**
+    *   *Passo 1:* Python chama Qdrant e deleta **todos** os vetores onde `payload.snack_item_id == WLsSS_LBf`. (Isso limpa qualquer "sujeira" anterior).
+    *   *Passo 2:* Python usa **LlamaIndex/LangChain** para quebrar o `content_text` em chunks.
+    *   *Passo 3:* Python chama a API da **Jina AI (v3)** para gerar embeddings.
+    *   *Passo 4:* Python insere os novos vetores no Qdrant.
+3.  **Acknowledge (Ack):** Se tudo deu certo, o Python avisa o RabbitMQ: "Mensagem processada, pode apagar".
+
+---
+
+### 4. Tratamento de Falhas (Resiliência)
+
+O que acontece se a API da Jina cair ou o Qdrant estiver indisponível no momento da sincronização?
+
+Sem fila, o dado seria perdido e a busca da IA ficaria desatualizada para sempre. Com RabbitMQ, implementamos a **Dead Letter Queue (DLQ)**.
+
+1.  O Worker Python tenta processar.
+2.  Ocorre erro (ex: Timeout na Jina).
+3.  O Python envia um `Nack` (Negative Acknowledge).
+4.  O RabbitMQ espera X segundos e coloca a mensagem de volta na fila (Retry).
+5.  Após 5 tentativas falhas, a mensagem vai para uma fila especial chamada `dlq.ingestion.errors`.
+6.  **Alerta:** Seu time recebe um aviso para investigar, mas **nenhum dado é perdido**.
+
+---
+
+### 5. Casos Especiais de Sincronização
+
+#### Atualização de Metadados (Ex: Mudar o nome da Tabela)
+Se o usuário muda o título da tabela de "Vendas 2023" para "Vendas Final", isso afeta o contexto de *todas* as células daquela tabela.
+*   **Estratégia:** O Go envia um evento `TABLE_METADATA_UPDATED`.
+*   **Ação do Python:** O Qdrant permite atualizar o payload de milhares de vetores atomicamente sem precisar re-gerar o embedding (que é a parte cara). O Python roda um `Update Payload` em todos os itens com aquele `table_id`.
+
+#### Exclusão de Tabela
+*   **Evento:** `TABLE_DELETED`.
+*   **Ação:** Python roda um delete no Qdrant filtrando por `table_id`. Simples e rápido.
+
+---
+
+### 6. Diagrama de Sequência (Resumo Técnico)
+
+```mermaid
+sequenceDiagram
+    participant User as Usuário (Frontend)
+    participant Go as Backend Go
+    participant Rabbit as RabbitMQ
+    participant Py as AI Worker (Python)
+    participant Jina as Jina AI API
+    participant Qdrant as Vector DB
+
+    User->>Go: Salva Célula (Update)
+    Go->>Go: Salva no Postgres
+    Go->>Rabbit: Publica {ITEM_UPDATED}
+    Go-->>User: Retorna 200 OK (Instantâneo)
+    
+    loop Async Process
+        Py->>Rabbit: Consome Mensagem
+        Py->>Qdrant: Delete vetores antigos (snack_item_id)
+        Py->>Py: Chunking do Texto (LlamaIndex)
+        Py->>Jina: Gera Embeddings (v3)
+        Jina-->>Py: Vetores
+        Py->>Qdrant: Upsert (Novos Vetores + Payload)
+        Py->>Rabbit: Ack (Sucesso)
+    end
+```
+
+### 7. Vantagens Competitivas dessa Arquitetura
+
+1.  **Escalabilidade Infinita:** Se 10.000 usuários salvarem tabelas ao mesmo tempo, o Go não trava. A fila enche, e você pode subir automaticamente mais Workers Python (Auto-scaling) para drenar a fila rapidamente.
+2.  **Desacoplamento:** Se você precisar fazer manutenção no módulo de IA, o site principal continua funcionando perfeitamente. As atualizações apenas ficam "na fila" esperando o sistema voltar.
+3.  **Economia:** Você processa as atualizações de forma controlada, evitando picos de custo de API desnecessários.
+
+Esta é a peça que faltava para garantir que a **Snack Prompt** seja não apenas inteligente, mas extremamente confiável e robusta para uso Enterprise.

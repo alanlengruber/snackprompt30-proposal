@@ -1,0 +1,144 @@
+Perfeito. Para facilitar o **Discovery Técnico**, vou estruturar estes documentos não apenas como uma "ordem de serviço", mas como **Propostas de Design**.
+
+O objetivo é apresentar a estrutura proposta e listar os **"Pontos de Decisão"** onde o time técnico precisa opinar ou validar. Isso engaja a equipe e previne problemas futuros.
+
+Aqui estão os Documentos 4 e 5, formatados para reuniões de alinhamento.
+
+---
+
+# 📄 Documento 4: Modelagem de Dados & Contratos de API (Proposta para Discovery)
+
+**Objetivo desta Sessão:** Definir como vamos salvar os Agentes, como vamos cobrar (Créditos) e como o Frontend vai conversar com o Backend (Streaming).
+
+---
+
+### 1. Modelagem de Dados (Postgres - Gerenciado pelo Go)
+
+Precisamos expandir o schema atual para suportar o Marketplace e a Economia de Créditos.
+
+#### A. Entidade: Agentes (`agents`)
+*O "Pacote" que o usuário cria e vende.*
+
+| Campo | Tipo | Descrição / Nota para Discussão |
+| :--- | :--- | :--- |
+| `id` | UUID | PK |
+| `author_id` | UUID | FK para `users`. |
+| `title` | String | Nome público do agente. |
+| `description` | Text | Texto de marketing para o Marketplace. |
+| `system_prompt` | Text (Encrypted) | **Crítico:** O "cérebro". Deve ser encriptado em repouso? |
+| `model_config` | JSONB | `{ "provider": "openai", "model": "gpt-4o", "temperature": 0.7 }` |
+| `visibility` | Enum | `private`, `public_free`, `marketplace_paid`. |
+| `price_per_msg` | Int | Custo em Créditos (se for pago). |
+| `is_blackbox` | Boolean | Se `true`, o comprador não vê o prompt/tabelas associadas. |
+
+#### B. Entidade: Links de Conhecimento (`agent_knowledge_links`)
+*A cola entre o Agente e as Tabelas existentes.*
+
+| Campo | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `agent_id` | UUID | FK |
+| `table_id` | String | FK para sua tabela `snack_tables` atual. |
+| `type` | Enum | `static` (conhecimento fixo do criador) ou `dynamic` (slot para o usuário preencher). |
+
+#### C. Entidade: Economia (`user_credits` & `transactions`)
+*O sistema bancário da plataforma.*
+
+*   **Tabela `wallets`:** `user_id` | `balance` (Atomic Integer para evitar race conditions).
+*   **Tabela `transactions`:** Log imutável de cada consumo (`agent_usage`, `refill`, `payout`).
+
+> **🔴 Ponto de Discussão com o Time:**
+> *   Como vamos lidar com *Race Conditions* no saldo de créditos?
+> *   *Sugestão:* Usar `SELECT FOR UPDATE` no Postgres ou transações atômicas no Redis antes de persistir no Postgres.
+
+---
+
+### 2. Contratos de API (JSON)
+
+#### A. Endpoint de Chat (Streaming)
+*Como o Chat parece "vivo".*
+
+**Request:** `POST /api/chat/completions`
+```json
+{
+  "agent_id": "uuid-do-agente",
+  "messages": [
+    { "role": "user", "content": "Analise este contrato." }
+  ],
+  "attached_user_tables": ["table_id_do_usuario_1"], // O RAG Híbrido
+  "stream": true
+}
+```
+
+**Response (Server-Sent Events - SSE):**
+O Python não devolve um JSON único, mas um fluxo de eventos:
+
+*   `event: citation` -> `{ "ref_id": 1, "source": "Tabela Jurídica, Célula 2" }`
+*   `event: token` -> `{ "text": "O" }`
+*   `event: token` -> `{ "text": " contrato" }`
+*   `event: token` -> `{ "text": " é" }`
+*   `event: done` -> `{ "total_tokens": 150, "credits_deducted": 2 }`
+
+> **🔴 Ponto de Discussão com o Time:**
+> *   O Frontend (Next.js) vai conectar direto no Python para latência mínima ou passaremos pelo Go?
+> *   *Sugestão:* O Frontend chama o Python, mas envia um JWT assinado pelo Go para autenticação.
+
+---
+
+# 📄 Documento 5: A Lógica do "Cérebro" - LangGraph (Proposta para Discovery)
+
+**Objetivo desta Sessão:** Desenhar o fluxograma de como a IA "pensa" antes de responder. Não é código, é lógica.
+
+---
+
+### 1. O Estado do Grafo (State Schema)
+O que a IA precisa "lembrar" durante o processamento de uma resposta?
+
+```python
+class AgentState(TypedDict):
+    messages: list[BaseMessage]  # Histórico da conversa
+    context_chunks: list[Document] # Pedaços de texto recuperados do Qdrant
+    token_count: int             # Para o billing
+    user_context: dict           # IDs das tabelas permitidas
+```
+
+### 2. O Fluxo de Decisão (Nodes & Edges)
+
+Visualizem este fluxo para o nosso MVP:
+
+1.  **START**
+2.  **Node: Query Reformulation (Opcional)**
+    *   *Ação:* A IA reescreve a pergunta do usuário para ficar melhor para o banco vetorial.
+    *   *Ex:* User: "E o preço?" -> IA: "Qual é o preço do serviço da Incentive Brands?"
+3.  **Node: Multi-Hop Retrieval (O Coração do RAG)**
+    *   *Ação:* Consulta o Qdrant.
+    *   *Filtro Crítico:* `Filter( should: [ {table_id: KB_CRIADOR}, {table_id: KB_USUARIO} ] )`
+    *   Isso é o que permite o Agente Advogado ler a Lei (dele) e o Contrato (seu).
+4.  **Node: Generate (LLM)**
+    *   *Ação:* Recebe os chunks + System Prompt.
+    *   *Regra de Ouro:* "Responda apenas com base no contexto. Adicione `[Ref: ID]` ao final das sentenças."
+5.  **Node: Post-Processing**
+    *   *Ação:* Formata os links de citação para o Frontend.
+6.  **END**
+
+> **🔴 Ponto de Discussão com o Time:**
+> *   Vamos implementar "Self-Correction"? (Se a busca no Qdrant vier vazia, a IA tenta buscar de novo com outros termos ou avisa o usuário?)
+> *   *Sugestão:* Para o MVP, se não achar nada, avisa que não encontrou na base. Deixa a correção para a v2.
+
+### 3. Integração com "Tools" (Futuro Próximo)
+
+Embora não seja MVP, precisamos deixar o "slot" pronto no código.
+
+*   Se o Agente tiver a tool `search_web` habilitada, o LangGraph terá um **Conditional Edge**:
+    *   *A IA decide:* "Preciso buscar no Google?" -> Vai para Node `WebSearch`.
+    *   *A IA decide:* "Já tenho a resposta na tabela?" -> Vai para Node `Generate`.
+
+---
+
+### Resumo das Decisões a Tomar na Reunião (Checklist)
+
+1.  [ ] **Modelagem:** Aprovamos a tabela de `transactions` para créditos? É suficiente para auditoria?
+2.  [ ] **Segurança:** Onde guardaremos a chave de criptografia dos System Prompts? (Vault, Env Var, AWS KMS?)
+3.  [ ] **Streaming:** O time de Frontend está confortável em consumir *Server-Sent Events*?
+4.  [ ] **Python:** Vamos usar FastAPI ou Flask? (Recomendação forte: FastAPI por ser async nativo).
+
+Estes documentos estão prontos para serem projetados na tela da sala de reunião (ou compartilhados no Notion/Confluence) para guiar a discussão técnica.
