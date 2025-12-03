@@ -184,7 +184,7 @@ export default function RoadmapPage() {
               variant="outline"
               size="sm"
               onClick={() => setLocation("/")}
-              className="flex-1 gap-2"
+              className="flex-1 gap-2 text-white"
             >
               <FileText className="h-4 w-4" />
               <span className="text-xs">Docs</span>
@@ -197,7 +197,7 @@ export default function RoadmapPage() {
               variant="outline"
               size="sm"
               onClick={() => setLocation("/features")}
-              className="w-full gap-2"
+              className="w-full gap-2 text-white"
             >
               <List className="h-4 w-4" />
               <span className="text-xs">Feature List</span>
