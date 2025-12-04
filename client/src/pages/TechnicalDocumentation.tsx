@@ -4502,32 +4502,35 @@ const defaultConfig: AgentCitationConfig = {
 
           <Card className="p-8 mb-8">
             <h3 className="text-xl font-bold mb-4">Modelo de Distribuição por Uso</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              O modelo segue o princípio de <strong className="text-foreground">Segregação de Receita</strong>: custos de infraestrutura são cobertos pela margem do crédito, e o Fee do criador é dividido entre plataforma e seller.
+            </p>
             <div className="bg-slate-900 text-slate-100 p-6 rounded-lg font-mono text-sm mb-6">
               <div className="mb-4">
                 <span className="text-blue-400">👤</span> Usuário usa o Agente "Advogado Sênior"
               </div>
               <div className="mb-4">
-                <span className="text-green-400">💳</span> Custo da interação: <span className="text-yellow-400">5 créditos</span>
+                <span className="text-green-400">💳</span> Preço do Agente: <span className="text-yellow-400">50 créditos</span> (Infra: 10cr + Fee: 40cr)
               </div>
               <div className="border-t border-slate-700 pt-4 mt-4">
-                <p className="text-slate-400 text-xs mb-3">📊 DISTRIBUIÇÃO DOS 5 CRÉDITOS:</p>
+                <p className="text-slate-400 text-xs mb-3">📊 DISTRIBUIÇÃO DO FEE (40 CRÉDITOS):</p>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="bg-slate-800 p-3 rounded text-center">
                     <div className="text-2xl mb-1">🤖</div>
-                    <div className="text-sm font-bold">2 créditos</div>
-                    <div className="text-xs text-slate-400">(40%)</div>
-                    <div className="text-xs text-slate-500 mt-1">Custo IA</div>
+                    <div className="text-sm font-bold text-amber-400">10 créditos</div>
+                    <div className="text-xs text-amber-400">(Infra)</div>
+                    <div className="text-xs text-slate-500 mt-1">100% Plataforma</div>
                   </div>
                   <div className="bg-slate-800 p-3 rounded text-center">
                     <div className="text-2xl mb-1">🏢</div>
-                    <div className="text-sm font-bold">2 créditos</div>
-                    <div className="text-xs text-slate-400">(40%)</div>
+                    <div className="text-sm font-bold">8 créditos</div>
+                    <div className="text-xs text-slate-400">(~20% do Fee)</div>
                     <div className="text-xs text-slate-500 mt-1">Plataforma</div>
                   </div>
                   <div className="bg-green-900/50 p-3 rounded text-center border border-green-500/30">
                     <div className="text-2xl mb-1">💼</div>
-                    <div className="text-sm font-bold text-green-400">1 crédito</div>
-                    <div className="text-xs text-green-400">(20%)</div>
+                    <div className="text-sm font-bold text-green-400">32 créditos</div>
+                    <div className="text-xs text-green-400">(~80% do Fee)</div>
                     <div className="text-xs text-green-500 mt-1">Seller</div>
                   </div>
                 </div>
@@ -4538,31 +4541,31 @@ const defaultConfig: AgentCitationConfig = {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="text-left py-3 px-4 font-semibold">Destino</th>
-                    <th className="text-left py-3 px-4 font-semibold">% Padrão</th>
+                    <th className="text-left py-3 px-4 font-semibold">Distribuição</th>
                     <th className="text-left py-3 px-4 font-semibold">Descrição</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-border/50">
-                    <td className="py-3 px-4 font-medium">Custo IA</td>
-                    <td className="py-3 px-4"><span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">40%</span></td>
-                    <td className="py-3 px-4 text-muted-foreground">Tokens GPT-4, embeddings, etc.</td>
+                    <td className="py-3 px-4 font-medium">Custo IA/Infra</td>
+                    <td className="py-3 px-4"><span className="bg-amber-100 text-amber-700 px-2 py-1 rounded text-xs">100% retido</span></td>
+                    <td className="py-3 px-4 text-muted-foreground">Coberto pela margem de venda do crédito e retenção de Tools</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="py-3 px-4 font-medium">Plataforma</td>
-                    <td className="py-3 px-4"><span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">40%</span></td>
-                    <td className="py-3 px-4 text-muted-foreground">Infraestrutura, R&D, suporte</td>
+                    <td className="py-3 px-4"><span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">~20% do Fee</span></td>
+                    <td className="py-3 px-4 text-muted-foreground">Retém margem operacional do Fee do criador</td>
                   </tr>
                   <tr>
                     <td className="py-3 px-4 font-medium">Seller</td>
-                    <td className="py-3 px-4"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">20%</span></td>
-                    <td className="py-3 px-4 text-muted-foreground">Comissão do criador do agente</td>
+                    <td className="py-3 px-4"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">~80% do Fee</span></td>
+                    <td className="py-3 px-4 text-muted-foreground">Recebe a maior fatia, incentivando qualidade no marketplace</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p className="text-xs text-muted-foreground mt-4 italic">
-              Nota: Sellers com agentes de alta qualidade podem negociar splits mais favoráveis (ex: 30% para o seller).
+              Nota: Comissão do Seller varia de 70% a 85% conforme faixa de receita mensal (veja tabela de repasse na Seção 03).
             </p>
           </Card>
 
