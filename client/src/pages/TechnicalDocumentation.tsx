@@ -3359,7 +3359,7 @@ const defaultConfig: AgentCitationConfig = {
           <Card className="p-8 mb-8">
             <h3 className="text-xl font-bold mb-4">Visão Geral do Modelo</h3>
             <p className="text-sm text-muted-foreground mb-6">
-              O Snack Prompt 3.0 opera em um modelo de <strong className="text-foreground">marketplace bilateral</strong>, conectando criadores de agentes especializados com empresas que buscam soluções de IA corporativa. A plataforma gera receita através de três pilares principais: assinaturas mensais (SaaS), comissões sobre transações no marketplace e planos enterprise customizados.
+              O Snack Prompt 3.0 opera em um modelo de <strong className="text-foreground">marketplace bilateral</strong>, conectando criadores de agentes especializados com empresas que buscam soluções de IA corporativa. A plataforma gera receita através de três pilares principais, garantindo <strong className="text-foreground">resiliência financeira</strong>.
             </p>
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -3367,21 +3367,21 @@ const defaultConfig: AgentCitationConfig = {
                 <div className="text-3xl font-black text-primary mb-2">40%</div>
                 <h4 className="font-semibold mb-2">Assinaturas SaaS</h4>
                 <p className="text-xs text-muted-foreground">
-                  Receita recorrente de planos PRO e Premium com acesso à Knowledge Base ativa
+                  Receita recorrente de planos PRO e Premium. Cobre custos fixos operacionais (OpEx).
                 </p>
               </div>
               <div className="p-6 border-2 border-primary/20 rounded-lg">
                 <div className="text-3xl font-black text-primary mb-2">35%</div>
                 <h4 className="font-semibold mb-2">Marketplace</h4>
                 <p className="text-xs text-muted-foreground">
-                  Comissões de 20-30% sobre vendas de agentes especializados no marketplace
+                  Comissões sobre o uso de agentes especializados. Cobre custos variáveis e gera escala via efeito de rede.
                 </p>
               </div>
               <div className="p-6 border-2 border-primary/20 rounded-lg">
                 <div className="text-3xl font-black text-primary mb-2">25%</div>
                 <h4 className="font-semibold mb-2">Enterprise</h4>
                 <p className="text-xs text-muted-foreground">
-                  Contratos customizados com SLA, suporte dedicado e infraestrutura isolada
+                  Contratos customizados com SLA, suporte dedicado e infraestrutura isolada. Gera volume de caixa e valuation.
                 </p>
               </div>
             </div>
@@ -3408,7 +3408,7 @@ const defaultConfig: AgentCitationConfig = {
                 <div>
                   <h4 className="font-semibold mb-1">Para Criadores de Agentes</h4>
                   <p className="text-sm text-muted-foreground">
-                    Monetize seu conhecimento criando agentes especializados. Proteja sua propriedade intelectual com o sistema "Proxy Blindado" e receba 70-80% da receita gerada.
+                    Monetize seu conhecimento criando agentes especializados. Proteja sua propriedade intelectual com o sistema "Proxy Blindado" e receba <strong className="text-foreground">70-85%</strong> da receita gerada pelo seu agente.
                   </p>
                 </div>
               </div>
@@ -3419,7 +3419,7 @@ const defaultConfig: AgentCitationConfig = {
                 <div>
                   <h4 className="font-semibold mb-1">Para a Plataforma</h4>
                   <p className="text-sm text-muted-foreground">
-                    Efeito de rede: quanto mais agentes de qualidade, mais empresas. Quanto mais empresas, mais criadores. Dados de uso melhoram recomendações e aumentam conversão.
+                    Efeito de rede: quanto mais agentes de qualidade, mais empresas. Quanto mais empresas, mais criadores.
                   </p>
                 </div>
               </div>
@@ -3435,77 +3435,83 @@ const defaultConfig: AgentCitationConfig = {
           </div>
 
           <Card className="p-8 mb-8">
-            <h3 className="text-xl font-bold mb-4">Mecânica de Créditos</h3>
+            <h3 className="text-xl font-bold mb-4">Mecânica de Créditos e Unit Economics</h3>
             <p className="text-sm text-muted-foreground mb-6">
-              O sistema de créditos Snack funciona como uma moeda interna que abstrai os custos de IA e simplifica a precificação para o usuário final. <strong className="text-foreground">1 Snack Credit = $0.02</strong>.
+              O sistema de créditos Snack funciona como uma moeda interna que abstrai os custos de IA e simplifica a precificação.
             </p>
+
+            <div className="p-4 bg-primary/10 rounded-lg mb-6">
+              <p className="text-lg font-bold text-primary text-center">Taxa de Conversão: 1 Snack Credit = $0.02</p>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="p-6 bg-primary/5 rounded-lg">
                 <h4 className="font-semibold text-primary mb-3">Consumo de Créditos</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex justify-between">
-                    <span>Mensagem de chat simples (sem RAG)</span>
+                    <span>Mensagem simples</span>
                     <strong className="text-foreground">1-2 créditos</strong>
                   </li>
                   <li className="flex justify-between">
-                    <span>Mensagem com RAG (5 chunks)</span>
+                    <span>Mensagem com RAG</span>
                     <strong className="text-foreground">3-5 créditos</strong>
                   </li>
                   <li className="flex justify-between">
-                    <span>Agente especializado (marketplace)</span>
+                    <span>Agente especializado</span>
                     <strong className="text-foreground">5-20 créditos</strong>
                   </li>
                   <li className="flex justify-between">
-                    <span>Indexação de 1.000 células</span>
+                    <span>Indexação (1k células)</span>
                     <strong className="text-foreground">10 créditos</strong>
                   </li>
                 </ul>
               </div>
 
-              <div className="p-6 bg-primary/5 rounded-lg">
-                <h4 className="font-semibold text-primary mb-3">Pacotes de Créditos</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+              <div className="p-6 bg-amber-50 border border-amber-200 rounded-lg">
+                <h4 className="font-semibold text-amber-800 mb-3">A Lógica do "Spread" (Margem na Origem)</h4>
+                <p className="text-xs text-amber-700 mb-3">
+                  Ao vender o crédito a $0.02, criamos uma margem bruta inicial significativa sobre o custo real da infraestrutura.
+                </p>
+                <ul className="space-y-2 text-sm">
                   <li className="flex justify-between">
-                    <span>100 credits</span>
-                    <strong className="text-foreground">$2.00 (no discount)</strong>
+                    <span className="text-amber-700">Custo Médio IA</span>
+                    <strong className="text-amber-900">~$0.002 - $0.01</strong>
                   </li>
                   <li className="flex justify-between">
-                    <span>500 credits</span>
-                    <strong className="text-foreground">$9.00 (10% off)</strong>
+                    <span className="text-amber-700">Preço de Venda</span>
+                    <strong className="text-amber-900">$0.02 - $0.10</strong>
                   </li>
-                  <li className="flex justify-between">
-                    <span>1,000 credits</span>
-                    <strong className="text-foreground">$16.00 (20% off)</strong>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>5,000 credits</span>
-                    <strong className="text-foreground">$70.00 (30% off)</strong>
+                  <li className="flex justify-between border-t border-amber-200 pt-2">
+                    <span className="text-amber-700">Margem Bruta</span>
+                    <strong className="text-amber-900 text-lg">500% a 900%</strong>
                   </li>
                 </ul>
               </div>
             </div>
           </Card>
 
-          <Card className="p-8">
-            <h3 className="text-xl font-bold mb-4">Vantagens do Sistema de Créditos</h3>
+          <Card className="p-8 bg-muted/30">
+            <h3 className="text-xl font-bold mb-4">Estratégia de Margem</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Essa "gordura" inicial é <strong className="text-foreground">estratégica</strong>: ela permite absorver variações de uso (tokens excedentes) e oferecer comissões agressivas aos criadores sem comprometer o caixa.
+            </p>
             <div className="grid md:grid-cols-3 gap-4">
               <div className="p-4 border border-border rounded-lg">
                 <h4 className="font-semibold text-sm mb-2">Previsibilidade</h4>
                 <p className="text-xs text-muted-foreground">
-                  Empresas sabem exatamente quanto custará cada interação, facilitando orçamento e controle de gastos
+                  Empresas sabem exatamente quanto custará cada interação
                 </p>
               </div>
               <div className="p-4 border border-border rounded-lg">
-                <h4 className="font-semibold text-sm mb-2">Flexibilidade</h4>
+                <h4 className="font-semibold text-sm mb-2">Absorção de Variância</h4>
                 <p className="text-xs text-muted-foreground">
-                  Usuários podem comprar créditos sob demanda ou incluí-los em planos mensais com desconto
+                  Margem absorve tokens excedentes e variações de uso
                 </p>
               </div>
               <div className="p-4 border border-border rounded-lg">
-                <h4 className="font-semibold text-sm mb-2">Margem de Lucro</h4>
+                <h4 className="font-semibold text-sm mb-2">Comissões Atrativas</h4>
                 <p className="text-xs text-muted-foreground">
-                  Margem média de 40-60% sobre custos de IA, permitindo investimento em infraestrutura e crescimento
+                  Permite oferecer 70-85% aos criadores mantendo lucratividade
                 </p>
               </div>
             </div>
@@ -3520,11 +3526,29 @@ const defaultConfig: AgentCitationConfig = {
           </div>
 
           <Card className="p-8 mb-8">
-            <h3 className="text-xl font-bold mb-4">Estrutura de Comissões</h3>
+            <h3 className="text-xl font-bold mb-4">Estrutura de Comissões e Segregação de Receita</h3>
             <p className="text-sm text-muted-foreground mb-6">
-              O modelo de repasse é desenhado para incentivar criadores de alta qualidade enquanto mantém a sustentabilidade da plataforma. A comissão varia conforme o volume de vendas e a categoria do agente.
+              O modelo utiliza uma regra de <strong className="text-foreground">Segregação de Receita (Revenue Decoupling)</strong> para proteger a margem da plataforma. O repasse ao criador incide apenas sobre a "Taxa de Inteligência", nunca sobre o custo de infraestrutura.
             </p>
 
+            <div className="p-4 bg-slate-900 text-slate-100 rounded-lg mb-6 font-mono text-sm">
+              <p className="text-slate-400 text-xs mb-2">Fórmula de Precificação:</p>
+              <p className="text-center text-lg">
+                <span className="text-primary">Preço Final</span> = <span className="text-amber-400">Custo de Infra</span> <span className="text-slate-400">(Retido 100%)</span> + <span className="text-green-400">Fee do Criador</span> <span className="text-slate-400">(Split)</span>
+              </p>
+            </div>
+
+            <div className="p-4 bg-muted/50 rounded-lg mb-6">
+              <p className="text-sm text-muted-foreground">
+                <strong className="text-foreground">Exemplo:</strong> Se um agente usa um OCR (Custo 5 créditos) e cobra 10 créditos de Fee:
+              </p>
+              <ul className="text-sm text-muted-foreground mt-2 space-y-1">
+                <li>• <strong className="text-foreground">Plataforma retém:</strong> 5 créditos (Integral da Infra) + % do Fee</li>
+                <li>• <strong className="text-foreground">Criador recebe:</strong> % do Fee (conforme Split)</li>
+              </ul>
+            </div>
+
+            <h4 className="font-semibold mb-4">Tabela de Repasse (Sobre o Fee do Criador)</h4>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -3532,7 +3556,7 @@ const defaultConfig: AgentCitationConfig = {
                     <th className="text-left py-3 px-4 font-semibold">Faixa de Receita Mensal</th>
                     <th className="text-left py-3 px-4 font-semibold">Criador Recebe</th>
                     <th className="text-left py-3 px-4 font-semibold">Plataforma Retém</th>
-                    <th className="text-left py-3 px-4 font-semibold">Example ($200)</th>
+                    <th className="text-left py-3 px-4 font-semibold">Exemplo ($200 Fee)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -3561,7 +3585,7 @@ const defaultConfig: AgentCitationConfig = {
                     </td>
                   </tr>
                   <tr className="border-b border-border/50">
-                    <td className="py-3 px-4">Above $4,000</td>
+                    <td className="py-3 px-4">Acima de $4,000</td>
                     <td className="py-3 px-4 font-medium text-primary">85%</td>
                     <td className="py-3 px-4 text-muted-foreground">15%</td>
                     <td className="py-3 px-4">
@@ -3573,81 +3597,19 @@ const defaultConfig: AgentCitationConfig = {
             </div>
           </Card>
 
-          <Card className="p-8 mb-8">
-            <h3 className="text-xl font-bold mb-4">Ciclo de Pagamento</h3>
-            <div className="space-y-4 text-sm">
-              <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
-                  1
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Acumulação (Dias 1-30)</h4>
-                  <p className="text-muted-foreground">
-                    Receita de vendas do agente é acumulada na carteira do criador dentro da plataforma
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
-                  2
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Fechamento (Dia 1 do mês seguinte)</h4>
-                  <p className="text-muted-foreground">
-                    Sistema calcula comissão, deduz impostos e taxas de processamento (Stripe ~3%)
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
-                  3
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Pagamento (Dias 5-7)</h4>
-                  <p className="text-muted-foreground">
-                    Automatic transfer via bank transfer (minimum $10)
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
-                  4
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Transparência Total</h4>
-                  <p className="text-muted-foreground">
-                    Dashboard mostra em tempo real: vendas, comissões, saldo disponível e histórico de pagamentos
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Card>
-
           <Card className="p-8 bg-primary/5 border-primary/20">
             <h3 className="text-xl font-bold mb-4">Incentivos para Criadores</h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <h4 className="font-semibold text-primary mb-2">Bônus de Performance</h4>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Criadores com avaliação média acima de 4.5 estrelas recebem +5% de comissão
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-primary mb-2">Programa de Afiliados</h4>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Ganhe 10% de comissão sobre vendas de agentes indicados por você
+                  <strong className="text-foreground">+5%</strong> de comissão para criadores com avaliação média acima de 4.5 estrelas
                 </p>
               </div>
               <div>
                 <h4 className="font-semibold text-primary mb-2">Early Adopter</h4>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Primeiros 100 criadores mantêm 85% de comissão permanentemente
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-primary mb-2">Certificação</h4>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Agentes certificados pela Snack ganham selo de qualidade e destaque no marketplace
+                  Primeiros 100 criadores mantêm <strong className="text-foreground">85% permanentemente</strong>
                 </p>
               </div>
             </div>
@@ -3940,10 +3902,40 @@ const defaultConfig: AgentCitationConfig = {
           </div>
 
           <Card className="p-8 mb-8">
-            <h3 className="text-xl font-bold mb-4">O que são Tools?</h3>
+            <h3 className="text-xl font-bold mb-4">Monetização de Infraestrutura</h3>
             <p className="text-sm text-muted-foreground mb-6">
-              Tools são <strong className="text-foreground">capacidades especiais</strong> que seus agentes podem usar. Enquanto o LLM "pensa", as Tools "fazem" — calculam, buscam dados, geram documentos.
+              Tools são <strong className="text-foreground">capacidades especiais</strong> que seus agentes podem usar. Além de potência, são <strong className="text-foreground">Centros de Lucro</strong>: a receita do uso de Tools é retida 100% pela plataforma para cobrir custos de API e gerar margem adicional.
             </p>
+
+            <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg mb-6">
+              <h4 className="font-semibold text-amber-800 mb-3">Exemplos de Custos de Infra (Tools):</h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="text-center p-3 bg-white rounded">
+                  <p className="font-medium text-sm">Calculadora Financeira</p>
+                  <p className="text-xs text-muted-foreground">NPV/TIR</p>
+                  <p className="text-amber-700 font-bold">2 créditos</p>
+                  <p className="text-xs text-amber-600">Retido pela Plataforma</p>
+                </div>
+                <div className="text-center p-3 bg-white rounded">
+                  <p className="font-medium text-sm">OCR Inteligente</p>
+                  <p className="text-xs text-muted-foreground">Lê documentos</p>
+                  <p className="text-amber-700 font-bold">4 créditos</p>
+                  <p className="text-xs text-amber-600">Retido pela Plataforma</p>
+                </div>
+                <div className="text-center p-3 bg-white rounded">
+                  <p className="font-medium text-sm">Extrator de Tabelas</p>
+                  <p className="text-xs text-muted-foreground">Dados de PDFs</p>
+                  <p className="text-amber-700 font-bold">5 créditos</p>
+                  <p className="text-xs text-amber-600">Retido pela Plataforma</p>
+                </div>
+                <div className="text-center p-3 bg-white rounded">
+                  <p className="font-medium text-sm">Busca na Web</p>
+                  <p className="text-xs text-muted-foreground">Cotações</p>
+                  <p className="text-amber-700 font-bold">1 crédito</p>
+                  <p className="text-xs text-amber-600">Retido pela Plataforma</p>
+                </div>
+              </div>
+            </div>
 
             <div className="bg-white p-6 rounded-lg overflow-x-auto">
               <div className="mermaid text-sm">
@@ -3961,15 +3953,6 @@ const defaultConfig: AgentCitationConfig = {
     T -->|"3. Executa"| A
     A -->|"4. Resposta"| R`}
               </div>
-            </div>
-            <div className="mt-4 p-4 bg-slate-50 rounded-lg text-sm">
-              <p className="text-muted-foreground">
-                <strong className="text-foreground">Exemplo prático:</strong> Usuario pergunta
-                <em> "Calcule o NPV deste investimento"</em> → Agente identifica necessidade de calculo →
-                Chama <code className="bg-slate-200 px-1 rounded">Calculadora Financeira</code> →
-                Tool executa NPV(valores, taxa) e retorna $30,000 →
-                Agente contextualiza e entrega a resposta final.
-              </p>
             </div>
           </Card>
 
@@ -4142,9 +4125,9 @@ const defaultConfig: AgentCitationConfig = {
           </div>
 
           <Card className="p-8 mb-8">
-            <h3 className="text-xl font-bold mb-4">Crie Agentes Visualmente</h3>
+            <h3 className="text-xl font-bold mb-4">Crie Agentes Visualmente com Transparência de Custo</h3>
             <p className="text-sm text-muted-foreground mb-6">
-              O Agent Builder permite criar fluxos de agentes inteligentes <strong className="text-foreground">sem escrever código</strong>. Arraste nodes, conecte-os e configure comportamentos complexos de forma visual.
+              O Agent Builder permite criar fluxos sem código, com uma <strong className="text-foreground">Calculadora de Custos em Tempo Real</strong>. Conforme o criador adiciona Tools, o sistema exibe o custo base de infraestrutura, permitindo que ele precifique seu agente acima desse valor.
             </p>
 
             <div className="mermaid text-sm">
@@ -4157,6 +4140,27 @@ const defaultConfig: AgentCitationConfig = {
         B -.-> E["🔧 Tool: Calculadora"]
         B -.-> F["📚 KB Lookup"]
     end`}
+            </div>
+          </Card>
+
+          <Card className="p-8 mb-8 bg-primary/5 border-primary/20">
+            <h3 className="text-xl font-bold mb-4">Estratégia de Tiers para LLM (Buffer de Risco)</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              Para simplificar a cobrança variável de tokens, utilizamos <strong className="text-foreground">Tiers de preço fixo</strong> que já incluem margem de segurança. Isso transforma custo variável em preço fixo previsível para o usuário.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-6 border-2 border-border rounded-lg bg-white">
+                <h4 className="font-bold mb-2">Tier Standard</h4>
+                <p className="text-sm text-muted-foreground mb-3">GPT-4o-mini</p>
+                <p className="text-2xl font-black text-primary">1 crédito/msg</p>
+                <p className="text-xs text-muted-foreground mt-2">Ideal para tarefas simples</p>
+              </div>
+              <div className="p-6 border-2 border-primary rounded-lg bg-white">
+                <h4 className="font-bold mb-2">Tier Pro</h4>
+                <p className="text-sm text-muted-foreground mb-3">GPT-4o / Claude 3.5</p>
+                <p className="text-2xl font-black text-primary">3 créditos/msg</p>
+                <p className="text-xs text-muted-foreground mt-2">Para análises complexas</p>
+              </div>
             </div>
           </Card>
 
@@ -4823,39 +4827,26 @@ const defaultConfig: AgentCitationConfig = {
           </Card>
 
           <Card className="p-8 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-            <h3 className="text-xl font-bold mb-4">📅 Exemplo: Ciclo de Vida Completo</h3>
-            <p className="text-slate-300 text-sm mb-6">Timeline de uma venda até o saque:</p>
+            <h3 className="text-xl font-bold mb-4">📅 Exemplo Corrigido: Ciclo Completo de Receita</h3>
+            <p className="text-slate-300 text-sm mb-6">Fluxo desenhado para proteger o caixa da empresa contra fraudes e chargebacks:</p>
             <div className="space-y-4">
               <div className="border-l-4 border-l-blue-500 pl-4 py-2">
-                <div className="text-xs text-blue-400 font-semibold">DIA 1 (01/12/2024)</div>
+                <div className="text-xs text-blue-400 font-semibold">DIA 1</div>
                 <ul className="text-sm text-slate-300 mt-1 space-y-1">
                   <li>• 👤 Usuário compra 100 créditos por $100</li>
-                  <li>• 👤 Usuário usa Agente "Advogado Sênior" (50 créditos)</li>
-                  <li>• 💼 Seller recebe: 10 créditos (20% de 50)</li>
-                  <li>• 📊 Status: <span className="text-red-400">🔒 $10 PENDING</span></li>
-                </ul>
-              </div>
-              <div className="border-l-4 border-l-yellow-500 pl-4 py-2">
-                <div className="text-xs text-yellow-400 font-semibold">DAY 7 (08/12/2024)</div>
-                <ul className="text-sm text-slate-300 mt-1 space-y-1">
-                  <li>• 👤 More agent uses: +30 credits spent</li>
-                  <li>• 💼 Seller receives: +6 credits</li>
-                  <li>• 📊 Status: <span className="text-red-400">🔒 $16 PENDING</span> (16 credits total)</li>
+                  <li>• 👤 Usuário usa Agente "Advogado Sênior" (Preço: 50 créditos)</li>
+                  <li>• ⚙️ Custo de Infra (Tools usadas): <span className="text-amber-400">10 créditos</span> (Retidos pela Plataforma)</li>
+                  <li>• 💰 Fee do Agente: <span className="text-green-400">40 créditos</span></li>
+                  <li>• 💼 <strong>Seller recebe:</strong> <span className="text-green-400">32 créditos</span> (80% de comissão sobre o Fee)</li>
+                  <li>• 📊 Status: <span className="text-red-400">🔒 $32 PENDING</span></li>
                 </ul>
               </div>
               <div className="border-l-4 border-l-green-500 pl-4 py-2">
-                <div className="text-xs text-green-400 font-semibold">DAY 15 (15/12/2024)</div>
+                <div className="text-xs text-green-400 font-semibold">DIA 15</div>
                 <ul className="text-sm text-slate-300 mt-1 space-y-1">
-                  <li>• ⏰ Day 1 quarantine expires!</li>
-                  <li>• 📊 Status: <span className="text-green-400">🔓 $10 AVAILABLE</span> + <span className="text-red-400">🔒 $6 PENDING</span></li>
-                </ul>
-              </div>
-              <div className="border-l-4 border-l-purple-500 pl-4 py-2">
-                <div className="text-xs text-purple-400 font-semibold">DAY 16 (16/12/2024)</div>
-                <ul className="text-sm text-slate-300 mt-1 space-y-1">
-                  <li>• 💸 Seller requests $10 withdrawal via PIX</li>
-                  <li>• ✅ PIX processed in 5 minutes!</li>
-                  <li>• 📊 Status: <span className="text-red-400">🔒 $6 PENDING</span> (awaiting quarantine)</li>
+                  <li>• ⏰ Quarentena expira</li>
+                  <li>• 💸 Seller solicita saque via PIX</li>
+                  <li>• ✅ PIX processado automaticamente!</li>
                 </ul>
               </div>
             </div>
@@ -4940,35 +4931,28 @@ const defaultConfig: AgentCitationConfig = {
           </Card>
 
           <Card className="p-8 mb-8">
-            <h3 className="text-xl font-bold mb-4">Estratégias de Otimização de Custos</h3>
-            <div className="grid md:grid-cols-2 gap-6">
+            <h3 className="text-xl font-bold mb-4">Estratégias de Otimização</h3>
+            <div className="grid md:grid-cols-3 gap-6">
               <div className="p-4 border border-border rounded-lg">
-                <h4 className="font-semibold text-primary mb-2">Caching Inteligente</h4>
+                <h4 className="font-semibold text-primary mb-2">Caching de Embeddings</h4>
                 <p className="text-sm text-muted-foreground mb-2">
-                  Embeddings de queries similares são cacheados por 24h, reduzindo custo de Jina em 70%
+                  Embeddings de queries similares são cacheados, reduzindo custo de Jina AI
                 </p>
-                <div className="text-xs text-primary font-semibold">Savings: $0.00014/msg</div>
-              </div>
-              <div className="p-4 border border-border rounded-lg">
-                <h4 className="font-semibold text-primary mb-2">Modelos Menores para Tarefas Simples</h4>
-                <p className="text-sm text-muted-foreground mb-2">
-                  GPT-4o-mini para reformulação de queries (10x mais barato que GPT-4o)
-                </p>
-                <div className="text-xs text-primary font-semibold">Savings: $0.0008/msg</div>
+                <div className="text-xs text-primary font-semibold">Redução: 70%</div>
               </div>
               <div className="p-4 border border-border rounded-lg">
                 <h4 className="font-semibold text-primary mb-2">Quantização de Vetores</h4>
                 <p className="text-sm text-muted-foreground mb-2">
-                  Reduz custo de armazenamento no Qdrant em 75% sem perda significativa de qualidade
+                  Reduz custo de armazenamento no Qdrant sem perda significativa de qualidade
                 </p>
-                <div className="text-xs text-primary font-semibold">Savings: $0.0003/msg</div>
+                <div className="text-xs text-primary font-semibold">Redução: 75%</div>
               </div>
               <div className="p-4 border border-border rounded-lg">
                 <h4 className="font-semibold text-primary mb-2">Contratos de Volume</h4>
                 <p className="text-sm text-muted-foreground mb-2">
-                  Negociação com OpenAI para desconto de 20% em volumes acima de $10k/mês
+                  Negociação com OpenAI para desconto progressivo em volumes maiores
                 </p>
-                <div className="text-xs text-primary font-semibold">Savings: $0.0018/msg</div>
+                <div className="text-xs text-primary font-semibold">Desconto Progressivo</div>
               </div>
             </div>
           </Card>
@@ -5151,7 +5135,7 @@ const defaultConfig: AgentCitationConfig = {
           </div>
 
           <Card className="p-8 mb-8">
-            <h3 className="text-xl font-bold mb-4">Projeção de Receita (12 meses)</h3>
+            <h3 className="text-xl font-bold mb-4">Cenário Realista (Ano 1)</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -5228,11 +5212,11 @@ const defaultConfig: AgentCitationConfig = {
                 </div>
                 <div className="pt-4 border-t border-border">
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm font-semibold">Break-Even MRR</span>
-                    <span className="text-2xl font-black text-primary">$8,333</span>
+                    <span className="text-sm font-semibold">Break-Even Point</span>
+                    <span className="text-2xl font-black text-primary">Mês 6</span>
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    Esperado entre mês 6 e 7
+                    Margem Blended: 40-60% (Marketplace + Uso Interno)
                   </div>
                 </div>
               </div>
@@ -5527,9 +5511,9 @@ const defaultConfig: AgentCitationConfig = {
                   Q3
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold mb-2">Marketplace e Escala (Meses 5-8)</h4>
+                  <h4 className="font-semibold mb-2">Marketplace</h4>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Lançamento oficial do marketplace de agentes. Recrutamento ativo de criadores de conteúdo. Parcerias com consultorias e integradores. Meta: 15.000 usuários.
+                    Escala de criadores e parceiros. Lançamento oficial do marketplace de agentes.
                   </p>
                   <div className="flex gap-2 flex-wrap">
                     <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Creator Program</span>
@@ -5544,14 +5528,14 @@ const defaultConfig: AgentCitationConfig = {
                   Q4
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold mb-2">Enterprise e Expansão (Meses 9-12)</h4>
+                  <h4 className="font-semibold mb-2">Enterprise</h4>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Foco em vendas enterprise com time dedicado. Expansão internacional (LATAM). Certificações de segurança (SOC 2, ISO 27001). Meta: 30.000 usuários + 10 clientes enterprise.
+                    Expansão LATAM e Certificações SOC2. Foco em vendas enterprise com time dedicado.
                   </p>
                   <div className="flex gap-2 flex-wrap">
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Sales Team</span>
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Compliance</span>
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">International</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Expansão LATAM</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">SOC2</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Enterprise Sales</span>
                   </div>
                 </div>
               </div>
@@ -5701,10 +5685,23 @@ const defaultConfig: AgentCitationConfig = {
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">Model Context Protocol (MCP)</h3>
-                <p className="text-muted-foreground">
-                  O MCP é um protocolo aberto da Anthropic que padroniza como aplicações de IA se conectam a fontes de dados e ferramentas externas.
-                  Integrando MCP, o Snack Prompt se torna acessível diretamente do Claude Desktop, VS Code e qualquer cliente MCP-compatível.
+                <p className="text-muted-foreground mb-4">
+                  A estratégia de <strong className="text-foreground">fosso defensivo (Moat)</strong>. O MCP é um protocolo aberto da Anthropic que padroniza como aplicações de IA se conectam a fontes de dados e ferramentas externas.
                 </p>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div className="p-3 bg-white/50 rounded-lg">
+                    <p className="text-sm font-bold text-primary">Integração</p>
+                    <p className="text-xs text-muted-foreground">VS Code e Office via MCP</p>
+                  </div>
+                  <div className="p-3 bg-white/50 rounded-lg">
+                    <p className="text-sm font-bold text-primary">Vantagem</p>
+                    <p className="text-xs text-muted-foreground">Zero-Code para empresas</p>
+                  </div>
+                  <div className="p-3 bg-green-100 rounded-lg">
+                    <p className="text-sm font-bold text-green-700">&lt;5%</p>
+                    <p className="text-xs text-green-600">Concorrentes com MCP</p>
+                  </div>
+                </div>
               </div>
             </div>
           </Card>
