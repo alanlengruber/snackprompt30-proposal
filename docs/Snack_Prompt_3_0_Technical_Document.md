@@ -913,6 +913,6 @@ async def chat_completions(
 
 ---
 
-**Documento Preparado por:** Manus AI  
+**Documento Preparado por:** Alan Lengruber  
 **Última Atualização:** Dezembro 2025  
 **Status:** Pronto para Revisão Técnica

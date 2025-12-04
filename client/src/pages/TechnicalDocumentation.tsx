@@ -278,7 +278,7 @@ export default function TechnicalDocumentation() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div>
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">Documento Preparado por:</strong> Manus AI
+                  <strong className="text-foreground">Documento Preparado por:</strong> Alan Lengruber
                 </p>
                 <p className="text-sm text-muted-foreground">
                   <strong className="text-foreground">Última Atualização:</strong> Dezembro 2025
