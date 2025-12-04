@@ -333,10 +333,10 @@ export default function RoadmapPage() {
                   <strong className="text-foreground">Timeline Total:</strong> 28 semanas (~7 meses)
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">MVP + Marketplace:</strong> Final de Junho 2025
+                  <strong className="text-foreground">MVP + Marketplace:</strong> Final de Junho 2026
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">MCP (Phase 4):</strong> Agosto 2025 (pós-validação)
+                  <strong className="text-foreground">MCP (Phase 4):</strong> Agosto 2026 (pós-validação)
                 </p>
                 <p className="text-sm text-muted-foreground">
                   <strong className="text-foreground">Status:</strong> Em Planejamento
